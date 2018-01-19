@@ -15,4 +15,10 @@ class ListingController extends Controller
         }
         return response()->json($model);
     }
+
+    public function get_listing_web(Listing $listing)
+    {
+        $model=$listing->toJson();
+        return view('app',['model'=>$model]);
+    }
 }
