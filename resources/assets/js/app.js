@@ -1,13 +1,16 @@
 import Vue from "vue";
+import{ populateAmenitiesAndPrices }from'./helpers';
 import sample from "./data";
 import "core-js/fn/object/assign";
 
+
+let model = populateAmenitiesAndPrices(window.vuebnb_listing_model);
 /**
  * @type {Vue}
  */
 var app = new Vue({
   el: "#app",
-  data: Object.assign(sample, {
+  data: Object.assign(model, {
     headerImageStyle: {
       "background-image": "url('/images/header.jpg')"
     },
