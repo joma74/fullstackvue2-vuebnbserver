@@ -13,4 +13,10 @@ let mix = require("laravel-mix");
 
 mix
   .js("resources/assets/js/app.js", "public/js")
-  .styles("resources/assets/css/style.css", "public/css/style.css");
+  .styles("resources/assets/css/style.css", "public/css/style.css")
+  .webpackConfig({
+    watchOptions: {
+      poll: 3000,
+      ignored: /node_modules/,
+    }
+  });
