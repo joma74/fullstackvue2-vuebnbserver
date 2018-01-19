@@ -14,7 +14,7 @@ use App\Listing;
 */
 
 Route::get('/', function () {
-    return view('app');
+    return view('app'); 
 });
 
 Route::get('/listing/{listing}', function(Listing $listing){
