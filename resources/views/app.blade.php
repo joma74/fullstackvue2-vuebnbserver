@@ -67,6 +67,9 @@
 			<button v-on:click="modalOpen = false" class="modal-close">
 					&times;
 			</button>
+			<div class="modal-content">
+      			<image-carousel></image-carousel>
+    		</div>
 		</div>
 	</div>
 	<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>

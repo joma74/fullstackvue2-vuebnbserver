@@ -168,3 +168,15 @@ body.modal-open {
   font-weight: 100;
   line-height: 1;
 }
+
+.modal-content {
+  height: 100%;
+  max-width: 100vh;
+  padding-top: 12vh;
+  margin: 0 auto;
+  position: relative;
+}
+
+.image-carousel img {
+  max-width: 100%;
+}
