@@ -3,8 +3,28 @@ import{ populateAmenitiesAndPrices }from'./helpers';
 import sample from "./data";
 import "core-js/fn/object/assign";
 
-
-let model = populateAmenitiesAndPrices(window.vuebnb_listing_model);
+/**
+ * @typedef {Object} Amenity
+ * @property {string} icon
+ * @property {string} title
+ * 
+ * @typedef {Object} Prices
+ * @property {string} value
+ * @property {string} title
+ * 
+ * @typedef {Object} Model
+ * @property {number} id
+ * @property {string} title
+ * @property {address} string
+ * @property {Array<Amenity>} amenities
+ * @property {Array<Prices>} prices
+ * @property {number} id
+ */
+/** 
+ * @type {Model} 
+ */
+let model = populateAmenitiesAndPrices(JSON.parse(window.vuebnb_listing_model));
+console.log(mdoel);
 /**
  * @type {Vue}
  */
@@ -12,7 +32,7 @@ var app = new Vue({
   el: "#app",
   data: Object.assign(model, {
     headerImageStyle: {
-      "background-image": "url('/images/header.jpg')"
+      "background-image": `url('${model.images[0]}')`
     },
     contracted: true,
     modalOpen: false
