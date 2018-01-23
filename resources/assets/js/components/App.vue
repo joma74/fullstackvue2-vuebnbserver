@@ -1,8 +1,10 @@
 <template>
     <div>
         <div id="toolbar">
-            <img class="icon" src="/images/logo.png">
-            <h1>vuebnb</h1>
+            <router-link :to="{ name : 'home' }">
+                <img class="icon" src="/images/logo.png">
+                <h1>vuebnb</h1>
+            </router-link>
         </div>
         <router-view></router-view>
     </div>
@@ -10,6 +12,7 @@
 
 <script>
 import Vue from "vue";
+import RouterLink from "vue-router";
 
 export default Vue.extend({});
 </script>
@@ -22,14 +25,18 @@ export default Vue.extend({});
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
+#toolbar a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 #toolbar .icon {
-  /* display: inline-block; */
   height: 34px;
   padding: 16px 12px 16px 24px;
 }
 
 #toolbar h1 {
-  /* display: inline-block; */
   color: #4fc08d;
   font-size: 28px;
   margin: 0;

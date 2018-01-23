@@ -45,7 +45,7 @@ export default Vue.extend({
     }
   },
   destroyed: function() {
-    console.warn("vue-lcy: beforeCreate -> Have been destroyed, yep");
+    console.warn("vue-lcy: destroyed -> Has occured, yep");
     document.removeEventListener("keyup", this.escapeKeyListener);
   }
 });

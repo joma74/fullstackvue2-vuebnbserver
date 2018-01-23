@@ -24,6 +24,11 @@ class ListingController extends Controller
         return response()->json($model);
     }
 
+    public function get_home_web()
+    {
+        return view('app',['model'=>"{}"]);
+    }
+
     public function get_listing_web(Listing $listing)
     {
         $model = $listing->toArray();
