@@ -21,5 +21,8 @@ mix
     watchOptions: {
       poll: 3000,
       ignored: /node_modules/
+    },
+    resolve: {
+      alias: { vue$: "vue/dist/vue.runtime.esm.js" }
     }
   });
