@@ -51,11 +51,3 @@ button {
   font-size: 28px;
   margin: 0;
 }
-
-/**
-* CONTRACTED
-*/
-.about p.contracted {
-  height: 100px;
-  overflow: hidden;
-}

@@ -31,4 +31,9 @@ export default Vue.extend({
   text-decoration: underline;
   outline: none;
 }
+
+.about p.contracted {
+  height: 100px;
+  overflow: hidden;
+}
 </style>
