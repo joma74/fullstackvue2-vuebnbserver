@@ -1,12 +1,12 @@
 <template>
-    <div id="modal" :class="{ show: modalOpen }">
-		<button v-on:click="modalOpen = false" class="modal-close">
-				&times;
-		</button>
-		<div class="modal-content">
-      		<slot></slot>
-    	</div>
-	</div>
+  <div id="modal" :class="{ show: modalOpen }">
+    <button v-on:click="modalOpen = false" class="modal-close">
+      &times;
+    </button>
+    <div class="modal-content">
+      <slot></slot>
+    </div>
+  </div>
 </template>
 
 <script>

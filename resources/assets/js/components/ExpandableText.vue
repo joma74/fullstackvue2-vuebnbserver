@@ -1,19 +1,21 @@
 <template>
   <div>
-    <p :class="{ contracted: contracted }"><slot></slot></p>
+    <p :class="{ contracted: contracted }">
+      <slot></slot>
+    </p>
     <button v-if="contracted" class="more" @click="contracted = false">+ More</button>
-  </div>    
+  </div>
 </template>
 
 <script>
-import Vue from "vue"
+import Vue from "vue";
 
 export default Vue.extend({
-    data() {
-        return {
-            contracted: true
-        }
-    }
+  data() {
+    return {
+      contracted: true
+    };
+  }
 });
 </script>
 

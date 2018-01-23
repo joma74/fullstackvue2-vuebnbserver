@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <header-image :image-url="images[0]" @header-clicked="openModal">
+	<div>
+		<header-image :image-url="images[0]" @header-clicked="openModal">
 		</header-image>
 		<div class="container">
 			<div class="heading">
@@ -28,9 +28,9 @@
 			</div>
 		</div>
 		<modal-window ref="modalwindow">
-      		<image-carousel :images="images"></image-carousel>
-		</modal-window>  
-    </div>
+			<image-carousel :images="images"></image-carousel>
+		</modal-window>
+	</div>
 </template>
 
 <script>

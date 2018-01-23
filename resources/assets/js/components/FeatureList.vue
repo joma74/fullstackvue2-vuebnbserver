@@ -16,7 +16,7 @@ import Vue from "vue";
 
 export default Vue.extend({
   props: {
-    title : {
+    title: {
       type: String,
       required: true
     },
