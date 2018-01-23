@@ -32,8 +32,7 @@
 			<hr>
 			<div class="about">
 				<h3>About this listing</h3>
-				<p :class="{ contracted: contracted }">@{{ about }}</p>
-				<button v-if="contracted" class="more" @click="contracted = false">+ More</button>
+				<expandable-text>@{{ about }}</expandable-text>
 			</div>
 			<div class="lists">
 				<feature-list title="Amenities" :items="amenities">
