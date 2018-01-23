@@ -36,28 +36,18 @@
 				<button v-if="contracted" class="more" @click="contracted = false">+ More</button>
 			</div>
 			<div class="lists">
-				<div class="amenities list">
-					<div class="title">
-						<strong>Amenities</strong>
-					</div>
-					<div class="content">
-						<div class="list-item" v-for="amenity in amenities">
-							<i class="fa fa-lg" :class="amenity.icon"></i>
-							<span>@{{ amenity.title }}</span>
-						</div>
-					</div>
-				</div>
-				<div class="prices list">
-					<div class="title">
-						<strong>Prices</strong>
-					</div>
-					<div class="content">
-						<div class="list-item" v-for="price in prices">
-							@{{ price.title }}:
-							<strong>@{{ price.value }}</strong>
-						</div>
-					</div>
-				</div>
+				<feature-list title="Amenities" :items="amenities">
+					<template slot-scope="amenity">
+						<i class="fa fa-lg" :class="amenity.icon"></i>
+						<span>@{{ amenity.title }}</span>
+					</template>
+				</feature-list>
+				<feature-list title="Prices" :items="prices">
+					<template slot-scope="price">
+						@{{ price.title }}:
+						<strong>@{{ price.value }}</strong>
+					</template>
+				</feature-list>
 			</div>
 		</div>
 		<modal-window ref="modalwindow">

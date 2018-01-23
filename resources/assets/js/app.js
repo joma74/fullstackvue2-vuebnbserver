@@ -30,6 +30,7 @@ let model = populateAmenitiesAndPrices(JSON.parse(window.vuebnb_listing_model));
 import ImageCarousel from "./components/ImageCarousel.vue"
 import ModalWindow from "./components/ModalWindow.vue"
 import HeaderImage from "./components/HeaderImage.vue"
+import FeatureList from "./components/FeatureList.vue"
 
 /**
  * @type {Vue}
@@ -39,7 +40,8 @@ var app = new Vue({
   components: {
     ImageCarousel,
     ModalWindow,
-    HeaderImage
+    HeaderImage,
+    FeatureList
   },
   data: Object.assign(model, {
     contracted: true

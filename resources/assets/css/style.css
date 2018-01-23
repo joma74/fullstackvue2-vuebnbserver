@@ -53,28 +53,6 @@ button {
 }
 
 /**
-* HEADER
-*/
-.header {
-  height: 320px;
-}
-.header .header-img {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 50%;
-  background-color: #f5f5f5;
-  height: 100%;
-  cursor: pointer;
-  position: relative;
-}
-
-.header .header-img .view-photos {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-}
-
-/**
 * CONTRACTED
 */
 .about p.contracted {
@@ -94,39 +72,4 @@ button {
 .about button.more:active {
   text-decoration: underline;
   outline: none;
-}
-
-/**
-* LIST
-*/
-.list {
-  display: flex;
-  flex-wrap: nowrap;
-  margin: 2em 0;
-}
-.list .title {
-  flex: 1 1 25%;
-}
-.list .content {
-  display: flex;
-  flex: 1 1 75%;
-  flex-wrap: wrap;
-}
-.list .list-item {
-  flex: 0 0 50%;
-  margin-bottom: 16px;
-}
-.list .list-item > i {
-  width: 35px;
-}
-@media (max-width: 743px) {
-  .list .title {
-    flex: 1 1 33%;
-  }
-  .list .content {
-    flex: 1 1 67%;
-  }
-  .list .list-item {
-    flex: 0 0 100%;
-  }
 }
