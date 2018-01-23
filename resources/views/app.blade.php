@@ -22,11 +22,8 @@
 		<h1>vuebnb</h1>
 	</div>
 	<div id="app">
-		<div class="header">
-			<div class="header-img" :style="headerImageStyle" @click="openModal">
-				<button class="view-photos">View Photos</button>
-			</div>
-		</div>
+		<header-image :image-url="images[0]" @header-clicked="openModal">
+		</header-image>
 		<div class="container">
 			<div class="heading">
 				<h1>@{{ title }}</h1>
