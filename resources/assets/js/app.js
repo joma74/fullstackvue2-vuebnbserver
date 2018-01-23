@@ -28,6 +28,7 @@ import "core-js/fn/object/assign";
 let model = populateAmenitiesAndPrices(JSON.parse(window.vuebnb_listing_model));
 
 import ImageCarousel from "./components/ImageCarousel.vue"
+import ModalWindow from "./components/ModalWindow.vue"
 
 /**
  * @type {Vue}
@@ -35,47 +36,18 @@ import ImageCarousel from "./components/ImageCarousel.vue"
 var app = new Vue({
   el: "#app",
   components: {
-    ImageCarousel
+    ImageCarousel,
+    ModalWindow
   },
   data: Object.assign(model, {
     headerImageStyle: {
       "background-image": `url('${model.images[0]}')`
     },
-    contracted: true,
-    modalOpen: false
+    contracted: true
   }),
-  beforeCreate: function() {
-    console.log("vue-lcy: beforeCreate -> " + this.title);
-  },
-  created: function() {
-    console.log("vue-lcy: created -> " + this.title);
-    document.addEventListener(
-      "keyup",
-      this.escapeKeyListener /* <- This Is Genius !:) */
-    );
-  },
   methods: {
-    /**
-     * @param {KeyboardEvent} evt
-     */
-    escapeKeyListener(evt) {
-      if (evt.keyCode === 27 && this.modalOpen /* <- This Is Genius !:) */) {
-        this.modalOpen = false;
-      }
+    openModal(){
+      this.$refs.modalwindow.modalOpen = true;
     }
-  },
-  watch: {
-    modalOpen: function() {
-      var className = "modal-open";
-      if (this.modalOpen) {
-        document.body.classList.add(className);
-      } else {
-        document.body.classList.remove(className);
-      }
-    }
-  },
-  destroyed: function() {
-    console.log("vue-lcy: destroyed -> " + this.title);
-    document.removeEventListener("keyup", this.escapeKeyListener);
   }
 });
