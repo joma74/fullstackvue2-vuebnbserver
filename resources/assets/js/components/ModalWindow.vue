@@ -52,5 +52,46 @@ export default Vue.extend({
 </script>
 
 <style>
+#modal {
+  display: none;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.85);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+}
+#modal.show {
+  display: block;
+}
 
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0px 28px 8px;
+  font-size: 4em;
+  width: auto;
+  height: auto;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: #ffffff;
+  z-index: 1000;
+  font-weight: 100;
+  line-height: 1;
+}
+
+.modal-content {
+  height: 100%;
+  max-width: 100vh;
+  padding-top: 12vh;
+  margin: 0 auto;
+  position: relative;
+}
 </style>
