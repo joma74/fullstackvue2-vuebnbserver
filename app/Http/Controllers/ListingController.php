@@ -23,14 +23,23 @@ class ListingController extends Controller
     }
 
     public function get_home_web(){
-        return view('app',['data'=>"{}"]);
+        $collection= Listing::all(['id','address','title','price_per_night']);
+        $collection->transform(function($listing){
+            $listing->thumb=asset('images/'.$listing->id.'/Image_1_thumb.jpg');
+            return $listing;
+        });
+        $data=collect(['listings'=>$collection->toArray()]);
+        Log::debug("[ListingController:get_home_web] data as array is -> \n".print_r($data, true));
+        $data = json_encode($data);
+        Log::debug("[ListingController:get_home_web] data as json is -> \n".$data);
+	    return view('app',['data'=>$data]);
     }
 
     public function get_listing_web(Listing $listing){
         $data=$this->get_listing($listing);
-        Log::debug("data as array is -> \n".print_r($data, true));
+        Log::debug("[ListingController:get_listing_web] data as array is -> \n".print_r($data, true));
         $data = json_encode($data);
-        Log::debug("data as json is -> \n".$data);
+        Log::debug("[ListingController:get_listing_web] data as json is -> \n".$data);
         return view('app',['data'=>$data]);
     }
 }
