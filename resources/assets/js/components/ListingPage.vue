@@ -61,7 +61,8 @@ import "core-js/fn/object/assign";
 /**
  * @type {Model}
  */
-let model = populateAmenitiesAndPrices(JSON.parse(window.vuebnb_listing_model));
+let serverData = JSON.parse(window.vuebnb_listing_model);
+let model = populateAmenitiesAndPrices(serverData.listing);
 
 import ImageCarousel from "./ImageCarousel.vue";
 import ModalWindow from "./ModalWindow.vue";

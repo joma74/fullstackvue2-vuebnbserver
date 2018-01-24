@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="{{ asset('css/vue-style.css') }}" type="text/css">
 	<script type="text/javascript">
-		window.vuebnb_listing_model = "{!! addslashes($model) !!}";
+		window.vuebnb_listing_model = "{!! addslashes($data) !!}";
 	</script>
 </head>
 

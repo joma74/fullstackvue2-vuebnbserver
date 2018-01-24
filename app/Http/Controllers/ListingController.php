@@ -9,33 +9,28 @@ use Illuminate\Support\Facades\Log;
 class ListingController extends Controller
 {
 
-    private function add_image_urls($model, $id)
-    {
-        for($i = 1; $i <=4; $i++) {
-            $model['image_' . $i] = asset('images/' . $id . '/Image_' . $i . '.jpg');
+    private function get_listing($listing){
+        $model=$listing->toArray();
+        for($i=1;$i<=4;$i++){
+            $model['image_'.$i]=asset('images/'.$listing->id.'/Image_'.$i.'.jpg');
         }
-        return $model;
+        return collect(['listing'=>$model]);
+    }
+    
+    public function get_listing_api(Listing $listing){
+        $data=$this->get_listing($listing);
+        return response()->json($data);
     }
 
-    public function get_listing_api(Listing $listing)
-    {
-        $model = $listing->toArray();
-        $model = $this->add_image_urls($model, $listing->id);
-        return response()->json($model);
+    public function get_home_web(){
+        return view('app',['data'=>"{}"]);
     }
 
-    public function get_home_web()
-    {
-        return view('app',['model'=>"{}"]);
-    }
-
-    public function get_listing_web(Listing $listing)
-    {
-        $model = $listing->toArray();
-        $model = $this->add_image_urls($model, $listing->id);
-        Log::debug("model as array is -> \n".print_r($model, true));
-        $model = json_encode($model);
-        Log::debug("model as json is -> \n".$model);
-        return view('app',['model'=>$model]);
+    public function get_listing_web(Listing $listing){
+        $data=$this->get_listing($listing);
+        Log::debug("data as array is -> \n".print_r($data, true));
+        $data = json_encode($data);
+        Log::debug("data as json is -> \n".$data);
+        return view('app',['data'=>$data]);
     }
 }
