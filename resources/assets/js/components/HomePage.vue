@@ -26,18 +26,28 @@ import ListingSummary from "./ListingSummary.vue";
  * @property {string} country
  * @property {Listing[]} listings
  */
-let serverData = JSON.parse(window.vuebnb_listing_model);
 /**
  * @type {CountryWithListings[]}
  */
-let listingsByCountry = groupByCountry(serverData.listings);
-console.log(listingsByCountry);
+let listingsByCountry = {};
 
 export default Vue.extend({
   components: {
     ListingSummary
   },
   data: () => { return {"listingsByCountry" : listingsByCountry } }  // uses es6 arrow functions
+  , beforeRouteEnter(to, from, next) {
+    let serverData = JSON.parse(window.vuebnb_listing_model);
+    if (to.path === serverData.path) {
+      next(component => {
+        let resetData = groupByCountry(serverData.listings)
+        component.listingsByCountry = Object.assign({}, component.listingsByCountry, resetData)
+      });
+    } else {
+      console.warn('Need to get data with AJAX!');
+      next(false);
+    }
+  }
 });
 </script>
 
