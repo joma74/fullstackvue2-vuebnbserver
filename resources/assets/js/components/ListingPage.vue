@@ -58,10 +58,11 @@ import "core-js/fn/object/assign";
  * @property {Array<String>} images
  * @property {number} id
  */
+let serverData = JSON.parse(window.vuebnb_listing_model);
+
 /**
  * @type {Model}
  */
-let serverData = JSON.parse(window.vuebnb_listing_model);
 let model = populateAmenitiesAndPrices(serverData.listing);
 
 import ImageCarousel from "./ImageCarousel.vue";
