@@ -1,7 +1,7 @@
 <template>
     <div class="home-container">
         <!-- () is a map of each item where country is the key and groupOfListings is the value(an array of listing objects)-->
-        <div v-for="(listingsOfCountry, country) in $data" class="listing-summary-group">
+        <div v-for="(listingsOfCountry, country) in listingsByCountry" class="listing-summary-group">
             <h1>Places in {{ country }}</h1>
             <div class="listing-summaries">
                 <listing-summary v-for="listing in listingsOfCountry" :key="listing.id" :listing="listing"></listing-summary>
@@ -30,13 +30,14 @@ let serverData = JSON.parse(window.vuebnb_listing_model);
 /**
  * @type {CountryWithListings[]}
  */
-let listing_groups = groupByCountry(serverData.listings);
+let listingsByCountry = groupByCountry(serverData.listings);
+console.log(listingsByCountry);
 
 export default Vue.extend({
   components: {
     ListingSummary
   },
-  data: () => Object.assign(listing_groups, {}) // uses es6 arrow functions
+  data: () => { return {"listingsByCountry" : listingsByCountry } }  // uses es6 arrow functions
 });
 </script>
 
