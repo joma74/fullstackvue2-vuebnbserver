@@ -1,11 +1,10 @@
 <template>
-    <div>
+    <div class="home-container">
         <!-- () is a map of each item where country is the key and groupOfListings is the value(an array of listing objects)-->
-        <div v-for="(groupOfListings, country) in $data"> 
+        <div v-for="(listingsOfCountry, country) in $data" class="listing-summary-group">
             <h1>Places in {{ country }}</h1>
-            <div>
-                Each group of listings will go here<br/>
-                {{ groupOfListings }}
+            <div class="listing-summaries">
+                <listing-summary v-for="listing in listingsOfCountry" :key="listing.id" :listing="listing"></listing-summary>
             </div>
         </div>
     </div>
@@ -14,25 +13,56 @@
 <script>
 import Vue from "vue";
 import { groupByCountry } from "../helpers";
+import ListingSummary from "./ListingSummary.vue";
 
 /**
- * @typedef {Object} Model
+ * @typedef {Object} Listing
  * @property {number} id
  * @property {string} title
  * @property {string} price_per_night
- * @property {string} thump
+ * @property {string} thumb
+ *
+ * @typedef {Object} CountryWithListings
+ * @property {string} country
+ * @property {Listing[]} listings
  */
 let serverData = JSON.parse(window.vuebnb_listing_model);
 /**
- * @type {Model[]}
+ * @type {CountryWithListings[]}
  */
 let listing_groups = groupByCountry(serverData.listings);
 
 export default Vue.extend({
+  components: {
+    ListingSummary
+  },
   data: () => Object.assign(listing_groups, {}) // uses es6 arrow functions
 });
 </script>
 
 <style>
-
+.home-container {
+  margin: 0 auto;
+  padding: 0 25px;
+}
+@media (min-width: 1131px) {
+  .home-container {
+    width: 1080px;
+  }
+}
+.listing-summary-group {
+  padding-bottom: 20px;
+}
+.listing-summaries {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.listing-summaries > .listing-summary {
+  margin-right: 15px;
+}
+.listing-summaries > .listing-summary:last-child {
+  margin-right: 0;
+}
 </style>
