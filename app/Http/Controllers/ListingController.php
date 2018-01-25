@@ -20,19 +20,29 @@ class ListingController extends Controller
     private function add_meta_data($collection, Request $request){
         return $collection->merge(['path'=>$request->getPathInfo()]);
     }
+
+    private function get_listing_summaries(){
+        $collection= Listing::all(['id','address','title','price_per_night']);
+        $collection->transform(function($listing){
+            $listing->thumb=asset('images/'.$listing->id.'/Image_1_thumb.jpg');
+            return $listing;
+        });
+        return collect(['listings'=>$collection->toArray()]);
+    }
     
     public function get_listing_api(Listing $listing){
         $data=$this->get_listing($listing);
         return response()->json($data);
     }
 
+    public function get_home_api(){
+        $data=$this->get_listing_summaries();
+        Log::debug("[ListingController:get_home_api] data as array is -> \n".print_r($data, true));
+	    return response()->json($data);
+    }
+
     public function get_home_web(Request $request){
-        $collection= Listing::all(['id','address','title','price_per_night']);
-        $collection->transform(function($listing){
-            $listing->thumb=asset('images/'.$listing->id.'/Image_1_thumb.jpg');
-            return $listing;
-        });
-        $data=collect(['listings'=>$collection->toArray()]);
+        $data=$this->get_listing_summaries();
         $data=$this->add_meta_data($data, $request);
         Log::debug("[ListingController:get_home_web] data as array is -> \n".print_r($data, true));
         $data = json_encode($data);
