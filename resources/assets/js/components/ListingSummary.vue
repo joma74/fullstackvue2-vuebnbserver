@@ -1,14 +1,16 @@
 <template>
-    <div class="listing-summary">
-        <div class="wrapper">
-            <div class="thumbnail" :style="backgroundImageStyle"></div>
-            <div class="info title">
-                <span>{{ listing.price_per_night }}</span>
-                <span>{{ listing.title }}</span>
-            </div>
-            <div class="info address">{{ listing.address }}</div>
+  <div class="listing-summary">
+    <router-link :to="{ name: 'listing', params: { id: listing.id } }">
+      <div class="wrapper">
+        <div class="thumbnail" :style="backgroundImageStyle"></div>
+        <div class="info title">
+          <span>{{ listing.price_per_night }}</span>
+          <span>{{ listing.title }}</span>
         </div>
-    </div>
+        <div class="info address">{{ listing.address }}</div>
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -22,12 +24,15 @@ import Vue from "vue";
  * @property {string} thumb
  */
 
-export default Vue.extend({
-  props: {
-    listing: {
+/** @type {Listing} */
+let p_listing = {
       type: Object,
       required: true
     }
+
+export default Vue.extend({
+  props: {
+    listing: p_listing
   },
   computed: {
     backgroundImageStyle() {

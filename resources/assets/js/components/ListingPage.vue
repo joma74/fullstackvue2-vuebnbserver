@@ -1,25 +1,25 @@
 <template>
 	<div>
-		<header-image :image-url="images[0]" @header-clicked="openModal">
+		<header-image v-if="listing.images[0]" :image-url="listing.images[0]" @header-clicked="openModal">
 		</header-image>
 		<div class="container">
 			<div class="heading">
-				<h1>{{ title }}</h1>
-				<p>{{ address }}</p>
+				<h1>{{ listing.title }}</h1>
+				<p>{{ listing.address }}</p>
 			</div>
 			<hr>
 			<div class="about">
 				<h3>About this listing</h3>
-				<expandable-text>{{ about }}</expandable-text>
+				<expandable-text>{{ listing.about }}</expandable-text>
 			</div>
 			<div class="lists">
-				<feature-list title="Amenities" :items="amenities">
+				<feature-list title="Amenities" :items="listing.amenities">
 					<template slot-scope="amenity">
 						<i class="fa fa-lg" :class="amenity.icon"></i>
 						<span>{{ amenity.title }}</span>
 					</template>
 				</feature-list>
-				<feature-list title="Prices" :items="prices">
+				<feature-list title="Prices" :items="listing.prices">
 					<template slot-scope="price">
 						{{ price.title }}:
 						<strong>{{ price.value }}</strong>
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		<modal-window ref="modalwindow">
-			<image-carousel :images="images"></image-carousel>
+			<image-carousel :images="listing.images"></image-carousel>
 		</modal-window>
 	</div>
 </template>
@@ -49,27 +49,34 @@ import "core-js/fn/object/assign";
  * @property {string} value
  * @property {string} title
  *
- * @typedef {Object} Model
+ * @typedef {Object} Listing
  * @property {number} id
  * @property {string} title
- * @property {address} string
+ * @property {string} about
+ * @property {string} address
  * @property {Array<Amenity>} amenities
  * @property {Array<Prices>} prices
  * @property {Array<String>} images
- * @property {number} id
  */
-let serverData = JSON.parse(window.vuebnb_listing_model);
-
 /**
- * @type {Model}
+ * @type {Listing}
  */
-let model = populateAmenitiesAndPrices(serverData.listing);
+let listingInitialData = {
+  id: null,
+  about: null,
+  title: null,
+  address: null,
+  amenities: [],
+  prices: [],
+  images: []
+};
 
 import ImageCarousel from "./ImageCarousel.vue";
 import ModalWindow from "./ModalWindow.vue";
 import HeaderImage from "./HeaderImage.vue";
 import FeatureList from "./FeatureList.vue";
 import ExpandableText from "./ExpandableText.vue";
+import routeMixin from "../route-mixin";
 
 export default Vue.extend({
   components: {
@@ -79,10 +86,17 @@ export default Vue.extend({
     FeatureList,
     ExpandableText
   },
-  data: () => Object.assign(model, {}), // uses es6 arrow functions
+  data: () => {
+    return { listing: listingInitialData };
+  }, // uses es6 arrow functions
+  mixins: [routeMixin],
   methods: {
     openModal() {
       this.$refs.modalwindow.modalOpen = true;
+    },
+    assignData(data) {
+      let resetData = populateAmenitiesAndPrices(data.listing);
+      this.listing = Object.assign({}, this.listing, resetData); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
     }
   }
 });

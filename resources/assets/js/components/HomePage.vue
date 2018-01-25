@@ -12,9 +12,10 @@
 
 <script>
 import Vue from "vue";
-import axios from 'axios';
+import axios from "axios";
 import { groupByCountry } from "../helpers";
 import ListingSummary from "./ListingSummary.vue";
+import routeMixin from "../route-mixin";
 
 /**
  * @typedef {Object} Listing
@@ -39,22 +40,15 @@ export default Vue.extend({
   data: () => {
     return { listingsByCountry: listingsByCountry };
   }, // uses es6 arrow functions
-  beforeRouteEnter(to, from, next) {
-    let serverData = JSON.parse(window.vuebnb_listing_model);
-    if (to.path === serverData.path) {
-      next(component => {
-        let resetData = groupByCountry(serverData.listings);
-        component.listingsByCountry = Object.assign(
-          {},
-          component.listingsByCountry,
-          resetData
-        ); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
-      });
-    } else {
-      axios.get("/api/").then(({ data }) => {
-        let listingsByCountry = groupByCountry(data.listings);
-        next(component => (component.listingsByCountry = listingsByCountry));
-      });
+  mixins: [routeMixin],
+  methods: {
+    assignData(data) {
+      let resetData = groupByCountry(data.listings);
+      this.listingsByCountry = Object.assign(
+        {},
+        this.listingsByCountry,
+        resetData
+      ); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
     }
   }
 });
