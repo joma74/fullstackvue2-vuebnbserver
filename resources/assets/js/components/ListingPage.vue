@@ -37,7 +37,6 @@
 import Vue from "vue";
 import { populateAmenitiesAndPrices } from "../helpers";
 import sample from "../data";
-import "./../../css/style.css";
 import "core-js/fn/object/assign";
 
 /**

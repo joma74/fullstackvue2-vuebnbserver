@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./components/App.vue";
 import router from "./router";
+import "./../css/style.css";
 
 /**
  * @type {Vue}

@@ -16,7 +16,11 @@
 import Vue from "vue";
 
 export default Vue.extend({
-    data: {},
+    name: "CustomFooter",
+    data: () => {
+        return {
+        }
+    },
     methods: {
     },
     computed: {

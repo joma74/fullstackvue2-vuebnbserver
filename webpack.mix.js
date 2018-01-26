@@ -1,3 +1,4 @@
+require('dotenv').config();
 let mix = require("laravel-mix");
 
 /*
@@ -21,6 +22,7 @@ mix
     "public/css/style.css"
   )
   .copy('node_modules/open-sans-all/fonts',  'public/fonts')
+  .copy('resources/assets/images', 'public/images')
   .options({
     extractVueStyles: "public/css/vue-style.css"
   })

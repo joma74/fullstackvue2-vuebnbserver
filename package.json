@@ -12,6 +12,7 @@
   "devDependencies": {
     "axios": "^0.17",
     "cross-env": "^5.1",
+    "dotenv": "^4.0.0",
     "js-beautify": "^1.7.5",
     "laravel-mix": "^1.4",
     "open-sans-all": "^0.1.3",
