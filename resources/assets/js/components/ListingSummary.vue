@@ -26,11 +26,12 @@ import Vue from "vue";
 
 /** @type {Listing} */
 let p_listing = {
-      type: Object,
-      required: true
-    }
+  type: Object,
+  required: true
+};
 
 export default Vue.extend({
+  name: "ListingSummary",
   props: {
     listing: p_listing
   },

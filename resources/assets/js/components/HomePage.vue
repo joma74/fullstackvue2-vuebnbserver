@@ -1,12 +1,8 @@
 <template>
   <div class="home-container">
     <!-- () is a map of each item where country is the key and groupOfListings is the value(an array of listing objects)-->
-    <div v-for="(listingsOfCountry, country) in listingsByCountry" class="listing-summary-group">
-      <h1>Places in {{ country }}</h1>
-      <div class="listing-summaries">
-        <listing-summary v-for="listing in listingsOfCountry" :key="listing.id" :listing="listing"></listing-summary>
-      </div>
-    </div>
+    <listing-summary-group class="listing-summary-group" v-for="(listingsOfCountry, country) in listingsByCountry" :key="country" :listingsOfCountry="listingsOfCountry" :country="country">
+    </listing-summary-group>
   </div>
 </template>
 
@@ -14,8 +10,8 @@
 import Vue from "vue";
 import axios from "axios";
 import { groupByCountry } from "../helpers";
-import ListingSummary from "./ListingSummary.vue";
 import routeMixin from "../route-mixin";
+import ListingSummaryGroup from "./ListingSummaryGroup";
 
 /**
  * @typedef {Object} Listing
@@ -34,10 +30,11 @@ import routeMixin from "../route-mixin";
 let listingsByCountry = {};
 
 export default Vue.extend({
+  name: "HomePage",
   components: {
-    ListingSummary
+    ListingSummaryGroup
   },
-  data: () => {
+  data() {
     return { listingsByCountry: listingsByCountry };
   }, // uses es6 arrow functions
   mixins: [routeMixin],
@@ -50,24 +47,13 @@ export default Vue.extend({
         resetData
       ); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
     }
+  },
+  computed: {
+    fakeMethodForCodeCompletion() {}
   }
 });
 </script>
 
 <style>
-.listing-summary-group {
-  padding-bottom: 20px;
-}
-.listing-summaries {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  overflow: hidden;
-}
-.listing-summaries > .listing-summary {
-  margin-right: 15px;
-}
-.listing-summaries > .listing-summary:last-child {
-  margin-right: 0;
-}
+
 </style>
