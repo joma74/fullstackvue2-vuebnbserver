@@ -2,7 +2,7 @@
 	<div>
 		<header-image v-if="listing.images[0]" :image-url="listing.images[0]" @header-clicked="openModal">
 		</header-image>
-		<div class="container">
+		<div class="listing-container">
 			<div class="heading">
 				<h1>{{ listing.title }}</h1>
 				<p>{{ listing.address }}</p>

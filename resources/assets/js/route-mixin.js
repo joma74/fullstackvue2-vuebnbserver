@@ -11,12 +11,10 @@ function getData(to) {
     // @ts-ignore
     let serverData = JSON.parse(window.vuebnb_listing_model);
     if (!serverData.path || serverData.path !== to.path) {
-      axios.get(`/api${to.path}`).then(
-        /** @type {AxiosResponse} */ (({ data }) => {
-          /** assignment destructuring */
-          resolve(data);
-        })
-      );
+      axios.get(`/api${to.path}`).then((response) => {
+        const { data } = response;
+        resolve(data);
+      });
     } else {
       resolve(serverData);
     }
