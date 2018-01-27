@@ -46,6 +46,7 @@ export default Vue.extend({
 <style>
 .listing-summary {
   flex: none;
+  transition: transform 0.5s;
 }
 
 .listing-summary a {

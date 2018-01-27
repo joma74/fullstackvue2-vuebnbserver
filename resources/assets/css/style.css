@@ -35,7 +35,7 @@ button {
 }
 .home-container {
   margin: 0 auto;
-  padding: 0 25px;
+  padding: 0 30px;
 }
 @media (min-width: 1131px) {
   .home-container {
