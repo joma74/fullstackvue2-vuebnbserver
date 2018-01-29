@@ -1,6 +1,10 @@
 <template>
   <div class="listing-save" @click.stop="toggleSaved">
-    <i :class="classes"></i>
+    <button v-if="asButton">
+      <i :class="classes"></i>
+      {{ message }}
+    </button>
+    <i v-else :class="classes"></i>
   </div>
 </template>
 
@@ -11,7 +15,11 @@ import sfn from "./../store-function-names";
 export default Vue.extend({
   name: "ListingSave",
   props: {
-    id: Number
+    id: Number,
+    asButton: {
+      type: Boolean,
+      default: true
+    }
   },
   methods: {
     toggleSaved() {
@@ -19,6 +27,9 @@ export default Vue.extend({
     }
   },
   computed: {
+    /**
+     * @return {Boolean}
+     */
     isListingSaved() {
       return this.$store.state.saved.find(saved => saved === this.id);
     },
@@ -30,6 +41,9 @@ export default Vue.extend({
         "fa-heart": saved,
         "fa-heart-o": !saved
       };
+    },
+    message() {
+      return this.isListingSaved ? "Saved" : "Save";
     }
   }
 });
@@ -49,5 +63,12 @@ export default Vue.extend({
 
 .listing-save .fa-heart {
   color: #ff5a5f;
+}
+
+.listing-save i {
+  padding-right: 4px;
+}
+.listing-save button .fa-heart-o {
+  color: #808080;
 }
 </style>

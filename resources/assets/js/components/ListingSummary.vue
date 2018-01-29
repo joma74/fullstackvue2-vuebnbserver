@@ -10,7 +10,8 @@
         <div class="info address">{{ listing.address }}</div>
       </div>
     </router-link>
-    <listing-save :id="listing.id"></listing-save>
+    <listing-save :id="listing.id" :as-button="false"></listing-save>
+    <!-- Even though the as-button value is not dynamic, we use a v-bind to ensure the value is interpreted as a JavaScript value, not a string -->
   </div>
 </template>
 
