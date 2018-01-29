@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<header-image v-if="listing.images[0]" :image-url="listing.images[0]" @header-clicked="openModal">
+		<header-image v-if="listing.images[0]" :id="listing.id" :image-url="listing.images[0]" @header-clicked="openModal">
 		</header-image>
 		<div class="listing-container">
 			<div class="heading">

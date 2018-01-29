@@ -1,4 +1,7 @@
-/* html, body{overflow-x: hidden;} */
+html,
+body {
+  overflow-x: hidden;
+}
 
 body {
   font-family: "Open Sans", sans-serif;

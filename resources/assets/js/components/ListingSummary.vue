@@ -10,11 +10,13 @@
         <div class="info address">{{ listing.address }}</div>
       </div>
     </router-link>
+    <listing-save :id="listing.id"></listing-save>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+import ListingSave from "./ListingSave.vue";
 
 /**
  * @typedef {Object} Listing
@@ -32,6 +34,9 @@ let p_listing = {
 
 export default Vue.extend({
   name: "ListingSummary",
+  components: {
+    ListingSave
+  },
   props: {
     listing: p_listing
   },
@@ -47,6 +52,7 @@ export default Vue.extend({
 .listing-summary {
   flex: none;
   transition: transform 0.5s;
+  position: relative;
 }
 
 .listing-summary a {
@@ -83,4 +89,12 @@ export default Vue.extend({
   font-size: 14px;
   line-height: 18px;
 }
+
+@media (max-width: 421px) {
+  .listing-summary .listing-save {
+    left: 15px;
+    right: auto;
+  }
+}
+</style>
 </style>
