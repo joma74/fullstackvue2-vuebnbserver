@@ -1,3 +1,5 @@
+import ListingModel from "./ListingModel";
+
 let amenities = new Map();
 amenities.set('amenity_wifi', { title: 'Wireless Internet', icon: 'fa-wifi' });
 amenities.set('amenity_pets_allowed', { title: 'Pets Allowed', icon: 'fa-paw' });
@@ -13,38 +15,44 @@ prices.set('price_weekly_discount', 'Weekly discount');
 prices.set('price_monthly_discount', 'Monthly discount');
 
 let populateAmenitiesAndPrices = function(state) {
-  if (!state) return {};
-  var obj = {
-    id: state.id,
-    title: state.title,
-    address: state.address,
-    about: state.about,
-    amenities: [],
-    prices: [],
-    images: []
-  };
+  if (!state) return ListingModel();
+  var listingModel = ListingModel();
+  selCopy("id", state, listingModel);
+  selCopy("title", state, listingModel);
+  selCopy("address", state, listingModel);
+  selCopy("about", state, listingModel);
   for (let key in state) {
     let arr = key.split("_");
     if (arr[0] === 'amenity') {
-      obj.amenities.push(key);
+      listingModel.amenities.push(key);
     }
     if (arr[0] === 'price') {
-      obj.prices.push({ title: key, value: state[key]});
+      listingModel.prices.push({ title: key, value: state[key]});
     }
     if(arr[0] === 'image') {
-      obj.images.push(state[key]);
+      listingModel.images.push(state[key]);
     }
   }
 
-  obj.amenities = obj.amenities.map(item => amenities.get(item) );
+  listingModel.amenities = listingModel.amenities.map(item => amenities.get(item) );
 
-  obj.prices = obj.prices.map(item => {
+  listingModel.prices = listingModel.prices.map(item => {
     item.title = prices.get(item.title);
     return item;
   });
 
-  return obj;
+  return listingModel;
 };
+
+/**
+ * 
+ * @param {String} selPName 
+ * @param {Object} from 
+ * @param {Object} to 
+ */
+function selCopy(selPName, from, to){
+  to[selPName] = from[selPName] || to[selPName];
+}
 
 export { populateAmenitiesAndPrices };
 

@@ -16,18 +16,10 @@
 </template>
 
 <script>
+
 import Vue from "vue";
 import ListingSave from "./ListingSave.vue";
 
-/**
- * @typedef {Object} Listing
- * @property {number} id
- * @property {string} title
- * @property {string} price_per_night
- * @property {string} thumb
- */
-
-/** @type {Listing} */
 let p_listing = {
   type: Object,
   required: true

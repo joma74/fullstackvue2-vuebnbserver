@@ -39,43 +39,13 @@ import { populateAmenitiesAndPrices } from "../helpers";
 import sample from "../data";
 import "core-js/fn/object/assign";
 
-/**
- * @typedef {Object} Amenity
- * @property {string} icon
- * @property {string} title
- *
- * @typedef {Object} Prices
- * @property {string} value
- * @property {string} title
- *
- * @typedef {Object} Listing
- * @property {number} id
- * @property {string} title
- * @property {string} about
- * @property {string} address
- * @property {Array<Amenity>} amenities
- * @property {Array<Prices>} prices
- * @property {Array<String>} images
- */
-/**
- * @type {Listing}
- */
-let listingInitialData = {
-  id: null,
-  about: null,
-  title: null,
-  address: null,
-  amenities: [],
-  prices: [],
-  images: []
-};
-
 import ImageCarousel from "./ImageCarousel.vue";
 import ModalWindow from "./ModalWindow.vue";
 import HeaderImage from "./HeaderImage.vue";
 import FeatureList from "./FeatureList.vue";
 import ExpandableText from "./ExpandableText.vue";
 import routeMixin from "../route-mixin";
+import ListingModel from "../ListingModel"
 
 export default Vue.extend({
   components: {
@@ -86,7 +56,7 @@ export default Vue.extend({
     ExpandableText
   },
   data: () => {
-    return { listing: listingInitialData };
+    return { listing: ListingModel() };
   }, // uses es6 arrow functions
   mixins: [routeMixin],
   methods: {
@@ -97,7 +67,11 @@ export default Vue.extend({
       let resetData = populateAmenitiesAndPrices(data.listing);
       this.listing = Object.assign({}, this.listing, resetData); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
     }
-  }
+	},
+	computed: {
+		hustAFAkeMethod(){
+		}
+	}
 });
 </script>
 
