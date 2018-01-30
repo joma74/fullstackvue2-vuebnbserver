@@ -11,23 +11,8 @@ import Vue from "vue";
 import axios from "axios";
 import { groupByCountry } from "../helpers";
 import routeMixin from "../route-mixin";
-import ListingSummaryGroup from "./ListingSummaryGroup";
-
-/**
- * @typedef {Object} Listing
- * @property {number} id
- * @property {string} title
- * @property {string} price_per_night
- * @property {string} thumb
- *
- * @typedef {Object} CountryWithListings
- * @property {string} country
- * @property {Listing[]} listings
- */
-/**
- * @type {CountryWithListings[]}
- */
-let listingsByCountry = {};
+import ListingSummaryGroup from "./ListingSummaryGroup.vue";
+import ListingCountriesWithSummaryModel from "../ListingCountriesWithSummaryModel";
 
 export default Vue.extend({
   name: "HomePage",
@@ -35,7 +20,7 @@ export default Vue.extend({
     ListingSummaryGroup
   },
   data() {
-    return { listingsByCountry: listingsByCountry };
+    return { listingsByCountry: ListingCountriesWithSummaryModel() };
   }, // uses es6 arrow functions
   mixins: [routeMixin],
   methods: {
