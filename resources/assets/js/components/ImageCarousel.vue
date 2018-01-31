@@ -11,9 +11,11 @@
 </template>
 <script>
 import Vue from "vue";
-import CarouselControl from "../components/CarouselControl.vue";
+import CarouselControl from "./CarouselControl.vue";
+import { Component } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
+  name: "ImageCarousel",
   components: {
     CarouselControl
   },
@@ -22,35 +24,39 @@ export default Vue.extend({
       type: Array,
       required: true
     }
-  },
-  data() {
-    return {
-      index: 0
-    };
-  },
-  methods: {
-    changeImage(relativeIndex) {
-      let newIndex = 0;
-      if (relativeIndex < 0) {
-        newIndex = this.index - 1;
-      } else {
-        newIndex = this.index + 1;
-      }
-      if (newIndex < 0) {
-        newIndex = this.images.length - 1;
-      }
-      if (newIndex > this.images.length - 1) {
-        newIndex = 0;
-      }
-      this.index = newIndex;
-    }
-  },
-  computed: {
-    image() {
-      return this.images[this.index];
-    }
   }
-});
+})
+export default class ImageCarousel extends Vue {
+  /**
+   * @type {Array<String>} 
+   */
+  images;
+
+  index = 0;
+
+  /**
+   * @param {Number} relativeIndex 
+   */
+  changeImage(relativeIndex) {
+    let newIndex = 0;
+    if (relativeIndex < 0) {
+      newIndex = this.index - 1;
+    } else {
+      newIndex = this.index + 1;
+    }
+    if (newIndex < 0) {
+      newIndex = this.images.length - 1;
+    }
+    if (newIndex > this.images.length - 1) {
+      newIndex = 0;
+    }
+    this.index = newIndex;
+  }
+  
+  get image() {
+    return this.images[this.index];
+  }
+}
 </script>
 <style>
 .image-carousel img {

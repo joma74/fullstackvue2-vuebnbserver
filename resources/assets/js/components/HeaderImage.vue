@@ -10,9 +10,13 @@
 <script>
 import Vue from "vue";
 import ListingSave from "./ListingSave.vue";
+import { Component } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
   name: "HeaderImage",
+  components: {
+    ListingSave
+  },
   props: {
     imageUrl: {
       type: String,
@@ -21,16 +25,16 @@ export default Vue.extend({
     id: {
       type: Number
     }
-  },
-  components: {
-    ListingSave
-  },
-  computed: {
-    headerImageStyle() {
-      return { "background-image": `url(${this.imageUrl})` };
-    }
   }
-});
+})
+export default class HeaderImage extends Vue {
+  /**@type {String} */
+  imageUrl;
+
+  get headerImageStyle() {
+    return { "background-image": `url(${this.imageUrl})` };
+  }
+}
 </script>
 
 <style>

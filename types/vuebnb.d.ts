@@ -5,9 +5,11 @@ export declare interface ListingSummaryModel {
   thumb: string;
 }
 
+export declare type ListingsSummaryModel = ListingSummaryModel[];
+
 export declare interface ListingCountryWithSummaryModel {
   country: string;
-  listings: ListingSummaryModel[];
+  listings: ListingsSummaryModel;
 }
 
 export declare type ListingCountriesWithSummaryModel = ListingCountryWithSummaryModel[];

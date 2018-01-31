@@ -11,44 +11,46 @@
 
 <script>
 import Vue from "vue";
+import { Component, Watch } from "vue-property-decorator";
 
-export default Vue.extend({
-  data() {
-    return {
-      modalOpen: false
-    };
-  },
-  created: function() {
+@Component({
+  name: "ModalWindow"
+})
+export default class ModalWindow extends Vue {
+  
+  modalOpen = false;
+
+  /**
+   * @param {KeyboardEvent} evt
+   */
+  escapeKeyListener(evt) {
+    if (evt.keyCode === 27 && this.modalOpen /* <- This Is Genius !:) */) {
+      this.modalOpen = false;
+    }
+  }
+
+  created() {
     document.addEventListener(
       "keyup",
       this.escapeKeyListener /* <- This Is Genius !:) */
     );
-  },
-  methods: {
-    /**
-     * @param {KeyboardEvent} evt
-     */
-    escapeKeyListener(evt) {
-      if (evt.keyCode === 27 && this.modalOpen /* <- This Is Genius !:) */) {
-        this.modalOpen = false;
-      }
-    }
-  },
-  watch: {
-    modalOpen: function() {
-      var className = "modal-open";
-      if (this.modalOpen) {
-        document.body.classList.add(className);
-      } else {
-        document.body.classList.remove(className);
-      }
-    }
-  },
-  destroyed: function() {
+  }
+
+  destroyed() {
     console.warn("vue-lcy: destroyed -> Has occured, yep");
     document.removeEventListener("keyup", this.escapeKeyListener);
   }
-});
+
+  @Watch("modalOpen")
+  onModalOpenChange() {
+    var className = "modal-open";
+    if (this.modalOpen) {
+      document.body.classList.add(className);
+    } else {
+      document.body.classList.remove(className);
+    }
+  }
+}
 </script>
 
 <style>

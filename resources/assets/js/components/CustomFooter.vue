@@ -14,21 +14,16 @@
 
 <script>
 import Vue from "vue";
+import { Component } from "vue-property-decorator";
 
-export default Vue.extend({
-    name: "CustomFooter",
-    data: () => {
-        return {
-        }
-    },
-    methods: {
-    },
-    computed: {
-        containerClass() {
-            return `${ this.$route.name }-container`
-        }
-    }
+@Component({
+  name: "CustomFooter"
 })
+export default class CustomFooter extends Vue {
+  get containerClass() {
+    return `${this.$route.name}-container`;
+  }
+}
 </script>
 
 <style>

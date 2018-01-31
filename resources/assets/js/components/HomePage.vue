@@ -8,35 +8,32 @@
 
 <script>
 import Vue from "vue";
-import axios from "axios";
 import { groupByCountry } from "../helpers";
 import routeMixin from "../route-mixin";
 import ListingSummaryGroup from "./ListingSummaryGroup.vue";
 import ListingCountriesWithSummaryModel from "../ListingCountriesWithSummaryModel";
+import { Component } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
   name: "HomePage",
   components: {
     ListingSummaryGroup
   },
-  data() {
-    return { listingsByCountry: ListingCountriesWithSummaryModel() };
-  }, // uses es6 arrow functions
-  mixins: [routeMixin],
-  methods: {
-    assignData(data) {
-      let resetData = groupByCountry(data.listings);
-      this.listingsByCountry = Object.assign(
-        {},
-        this.listingsByCountry,
-        resetData
-      ); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
-    }
-  },
-  computed: {
-    fakeMethodForCodeCompletion() {}
+  mixins: [routeMixin]
+})
+export default class HomePage extends Vue {
+  
+  listingsByCountry = ListingCountriesWithSummaryModel();
+
+  assignData(data) {
+    let resetData = groupByCountry(data.listings);
+    this.listingsByCountry = Object.assign(
+      {},
+      this.listingsByCountry,
+      resetData
+    ); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
   }
-});
+}
 </script>
 
 <style>

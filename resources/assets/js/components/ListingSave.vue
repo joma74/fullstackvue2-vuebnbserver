@@ -11,8 +11,9 @@
 <script>
 import Vue from "vue";
 import sfn from "./../store-function-names";
+import { Component } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
   name: "ListingSave",
   props: {
     id: Number,
@@ -20,33 +21,34 @@ export default Vue.extend({
       type: Boolean,
       default: true
     }
-  },
-  methods: {
-    toggleSaved() {
-      this.$store.commit(sfn.m_toggleSaved, this.id);
-    }
-  },
-  computed: {
-    /**
-     * @return {Boolean}
-     */
-    isListingSaved() {
-      return this.$store.state.saved.find(saved => saved === this.id);
-    },
-    classes() {
-      let saved = this.isListingSaved;
-      return {
-        fa: true,
-        "fa-lg": true,
-        "fa-heart": saved,
-        "fa-heart-o": !saved
-      };
-    },
-    message() {
-      return this.isListingSaved ? "Saved" : "Save";
-    }
   }
-});
+})
+export default class ListingSave extends Vue {
+  /**
+   * @type {Number}
+   */
+  id;
+
+  toggleSaved() {
+    this.$store.commit(sfn.m_toggleSaved, this.id);
+  }
+
+  get isListingSaved() {
+    return this.$store.state.saved.find(saved => saved === this.id);
+  }
+  get classes() {
+    let saved = this.isListingSaved;
+    return {
+      fa: true,
+      "fa-lg": true,
+      "fa-heart": saved,
+      "fa-heart-o": !saved
+    };
+  }
+  get message() {
+    return this.isListingSaved ? "Saved" : "Save";
+  }
+}
 </script>
 
 <style>

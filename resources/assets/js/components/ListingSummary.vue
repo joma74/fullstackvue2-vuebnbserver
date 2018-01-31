@@ -1,44 +1,47 @@
 <template>
   <div class="listing-summary">
-    <router-link :to="{ name: 'listing', params: { id: listing.id } }">
+    <router-link :to="{ name: 'listing', params: { id: listingSummary.id } }">
       <div class="wrapper">
         <div class="thumbnail" :style="backgroundImageStyle"></div>
         <div class="info title">
-          <span>{{ listing.price_per_night }}</span>
-          <span>{{ listing.title }}</span>
+          <span>{{ listingSummary.price_per_night }}</span>
+          <span>{{ listingSummary.title }}</span>
         </div>
-        <div class="info address">{{ listing.address }}</div>
+        <div class="info address">{{ listingSummary.address }}</div>
       </div>
     </router-link>
-    <listing-save :id="listing.id" :as-button="false"></listing-save>
+    <listing-save :id="listingSummary.id" :as-button="false"></listing-save>
     <!-- Even though the as-button value is not dynamic, we use a v-bind to ensure the value is interpreted as a JavaScript value, not a string -->
   </div>
 </template>
 
 <script>
-
 import Vue from "vue";
 import ListingSave from "./ListingSave.vue";
+import { Component } from "vue-property-decorator";
 
-let p_listing = {
-  type: Object,
-  required: true
-};
-
-export default Vue.extend({
+@Component({
   name: "ListingSummary",
   components: {
     ListingSave
   },
   props: {
-    listing: p_listing
-  },
-  computed: {
-    backgroundImageStyle() {
-      return { "background-image": `url("${this.listing.thumb}")` };
+    listingSummary: {
+      type: Object,
+      required: true
     }
   }
-});
+})
+export default class ListingSummary extends Vue {
+  /**
+   * @type {vuebnb.ListingSummaryModel}
+   */
+  listingSummary;
+
+  get backgroundImageStyle() {
+    return { "background-image": `url("${this.listingSummary.thumb}")` };
+  }
+}
 </script>
 
 <style>

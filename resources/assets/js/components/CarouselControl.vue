@@ -3,35 +3,42 @@
 </template>
 <script>
 import Vue from "vue";
+import { Component } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
+  name: "CarouselControl",
   props: {
     dir: {
       type: String,
       required: true
     }
-  },
-  methods: {
-    clicked: function() {
+  }
+})
+export default class CarouselControl extends Vue {
+  /** 
+   * @type {String} 
+   */
+  dir;
+
+  clicked() {
       if ("left" === this.dir) {
         this.$emit("change-image", -1);
       } else {
         this.$emit("change-image", +1);
       }
     }
-  },
-  computed: {
-    classes() {
-      return "carousel-control fa fa-2x fa-chevron-" + this.dir;
-    }
+
+  get classes() {
+    return "carousel-control fa fa-2x fa-chevron-" + this.dir;
   }
-});
+}
 </script>
 <style>
 .carousel-control {
   padding: 1rem;
   color: #ffffff;
   opacity: 0.85;
+  cursor: pointer;
 }
 
 @media (min-width: 744px) {

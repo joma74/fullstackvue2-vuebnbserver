@@ -9,14 +9,14 @@
 
 <script>
 import Vue from "vue";
+import { Component } from "vue-property-decorator";
 
-export default Vue.extend({
-  data() {
-    return {
-      contracted: true
-    };
-  }
-});
+@Component({
+  name: "ExpandableText"
+})
+export default class ExpandableText extends Vue {
+  contracted = true;
+}
 </script>
 
 <style>

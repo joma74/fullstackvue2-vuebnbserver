@@ -45,9 +45,11 @@ import HeaderImage from "./HeaderImage.vue";
 import FeatureList from "./FeatureList.vue";
 import ExpandableText from "./ExpandableText.vue";
 import routeMixin from "../route-mixin";
-import ListingModel from "../ListingModel"
+import ListingModel from "../ListingModel";
+import { Component } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
+  name: "ListingPage",
   components: {
     ImageCarousel,
     ModalWindow,
@@ -55,24 +57,20 @@ export default Vue.extend({
     FeatureList,
     ExpandableText
   },
-  data: () => {
-    return { listing: ListingModel() };
-  }, // uses es6 arrow functions
-  mixins: [routeMixin],
-  methods: {
-    openModal() {
-      this.$refs.modalwindow.modalOpen = true;
-    },
-    assignData(data) {
-      let resetData = populateAmenitiesAndPrices(data.listing);
-      this.listing = Object.assign({}, this.listing, resetData); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
-    }
-	},
-	computed: {
-		hustAFAkeMethod(){
-		}
-	}
-});
+  mixins: [routeMixin]
+})
+export default class ListingPage extends Vue {
+  listing = ListingModel();
+
+  openModal() {
+    (/** @type {ModalWindow} */(this.$refs.modalwindow)).modalOpen = true;
+  }
+
+  assignData(data) {
+    let resetData = populateAmenitiesAndPrices(data.listing);
+    this.listing = Object.assign({}, this.listing, resetData); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
+  }
+}
 </script>
 
 <style>

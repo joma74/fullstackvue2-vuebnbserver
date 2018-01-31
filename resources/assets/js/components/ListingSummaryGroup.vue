@@ -8,7 +8,7 @@
       </div>
       <div class="listing-summaries-wrapper">
         <div class="listing-summaries">
-          <listing-summary :style="style" v-for="listing in listingsOfCountry" :key="listing.id" :listing="listing"></listing-summary>
+          <listing-summary :style="style" v-for="listing in listingsOfCountry" :key="listing.id" :listingSummary="listing"></listing-summary>
         </div>
       </div>
     </div>
@@ -19,12 +19,17 @@
 import Vue from "vue";
 import ListingSummary from "./ListingSummary.vue";
 import CarouselControl from "./CarouselControl.vue";
+import { Component, Prop } from "vue-property-decorator";
 
-const rowSize = 3;
-const listingSummaryWidth = 365;
+const ROW_SIZE = 3;
+const LISTING_SUMMARY_WIDTH = 365;
 
-export default Vue.extend({
+@Component({
   name: "ListingSummaryGroup",
+  components: {
+    ListingSummary,
+    CarouselControl
+  },
   props: {
     country: {
       type: String,
@@ -34,41 +39,46 @@ export default Vue.extend({
       type: Array,
       required: true
     }
-  },
-  data: () => {
-    return {
-      offset: 0
-    };
-  },
-  components: {
-    ListingSummary,
-    CarouselControl
-  },
-  methods: {
-    change(val) {
-      let newVal = this.offset + parseInt(val);
-      if (newVal >= 0 && newVal <= this.listingsOfCountry.length - rowSize) {
-        this.offset = newVal;
-      }
-    }
-  },
-  computed: {
-    style() {
-      return {
-        transform: `translateX(${this.offset * -listingSummaryWidth}px)`
-      };
-    },
-    leftArrowStyle() {
-      return { visibility: this.offset > 0 ? "visible" : "hidden" };
-    },
-    rightArrowStyle() {
-      return {
-        visibility:
-          this.offset < this.listingsOfCountry.length - rowSize ? "visible" : "hidden"
-      };
+  }
+})
+export default class ListingSummaryGroup extends Vue {
+
+  offset = 0;
+
+  /**
+   * @type {vuebnb.ListingsSummaryModel}
+   */
+  listingsOfCountry;
+
+  /**
+   * @param {String} val
+   */
+  change(val) {
+    let newVal = this.offset + parseInt(val);
+    if (newVal >= 0 && newVal <= this.listingsOfCountry.length - ROW_SIZE) {
+      this.offset = newVal;
     }
   }
-});
+
+  get style() {
+    return {
+      transform: `translateX(${this.offset * -LISTING_SUMMARY_WIDTH}px)`
+    };
+  }
+
+  get leftArrowStyle() {
+    return { visibility: this.offset > 0 ? "visible" : "hidden" };
+  }
+
+  get rightArrowStyle() {
+    return {
+      visibility:
+        this.offset < this.listingsOfCountry.length - ROW_SIZE
+          ? "visible"
+          : "hidden"
+    };
+  }
+}
 </script>
 
 <style>
