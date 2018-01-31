@@ -12,6 +12,7 @@
 import Vue from "vue";
 import sfn from "./../store-function-names";
 import { Component } from "vue-property-decorator";
+import Vuex from "vuex";
 
 @Component({
   name: "ListingSave",
