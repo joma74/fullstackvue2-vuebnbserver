@@ -6,9 +6,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    /**
+     * @type {Array<Number>}
+     */
     saved: []
   },
   mutations: {
+    /**
+     * @param {number} id
+     */
     [sfn.m_toggleSaved] : function(state, id) {
       let index = state.saved.findIndex(saved => saved === id);
       if (index === -1) {
