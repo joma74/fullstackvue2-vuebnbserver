@@ -4,9 +4,6 @@ import router from "./router";
 import store from "./store";
 import "./../css/style.css";
 
-/**
- * @type {Vue}
- */
 var app = new Vue({
   el: "#app",
   render: h => h(App),

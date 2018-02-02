@@ -1,5 +1,6 @@
-require('dotenv').config();
+require("dotenv").config();
 let mix = require("laravel-mix");
+const StatsWebpackPlugin = require("stats-webpack-plugin");
 
 /*
  |--------------------------------------------------------------------------
@@ -21,11 +22,22 @@ mix
     ],
     "public/css/style.css"
   )
-  .copy('node_modules/open-sans-all/fonts',  'public/fonts')
-  .copy('resources/assets/images', 'public/images')
+  .copy("node_modules/open-sans-all/fonts", "public/fonts")
+  .copy("resources/assets/images", "public/images")
   .options({
     extractVueStyles: "public/css/vue-style.css"
   })
+  .extract(
+    [
+      "vue",
+      "vuex",
+      "vue-router",
+      "axios",
+      "vue-class-component",
+      "vue-property-decorator"
+    ],
+    "js/vendors"
+  )
   .webpackConfig({
     watchOptions: {
       poll: 3000,
@@ -36,13 +48,38 @@ mix
     },
     output: {
       devtoolModuleFilenameTemplate(info) {
-        return 'file:///' + encodeURI(info.absoluteResourcePath)
+        return "file:///" + encodeURI(info.absoluteResourcePath);
       },
       devtoolFallbackModuleFilenameTemplate(info) {
-        return 'file:///' + encodeURI(info.absoluteResourcePath) + '?' + info.hash
+        return (
+          "file:///" + encodeURI(info.absoluteResourcePath) + "?" + info.hash
+        );
       }
     }
   });
-  if(!mix.inProduction()){
-    mix.sourceMaps(true, "cheap-source-map");
-  }
+if (!mix.inProduction()) {
+  mix.sourceMaps(true, "cheap-source-map");
+}
+
+if (mix.inProduction) {
+  mix.webpackConfig({
+    profile: true,
+    plugins: [
+      new StatsWebpackPlugin(
+        "../target/webpack-stats.json",
+        {
+          hash: true,
+          version: true,
+          timings: true,
+          children: true,
+          errorDetails: false,
+          chunks: true,
+          modules: true,
+          reasons: true,
+          source: false,
+          publicPath: true
+        }
+      )
+    ]
+  });
+}

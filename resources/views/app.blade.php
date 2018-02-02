@@ -19,6 +19,8 @@
 
 <body>
 	<div id="app"></div>
+	<script src="{{ asset('js/manifest.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('js/vendors.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 </body>
 
