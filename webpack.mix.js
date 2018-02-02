@@ -33,5 +33,16 @@ mix
     },
     resolve: {
       alias: { vue$: "vue/dist/vue.runtime.esm.js" }
+    },
+    output: {
+      devtoolModuleFilenameTemplate(info) {
+        return 'file:///' + encodeURI(info.absoluteResourcePath)
+      },
+      devtoolFallbackModuleFilenameTemplate(info) {
+        return 'file:///' + encodeURI(info.absoluteResourcePath) + '?' + info.hash
+      }
     }
   });
+  if(!mix.inProduction()){
+    mix.sourceMaps(true, "cheap-source-map");
+  }
