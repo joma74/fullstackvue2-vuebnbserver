@@ -18,21 +18,10 @@
 <script>
 import Vue from "vue";
 import ListingSave from "./ListingSave.vue";
-import { Component } from "vue-property-decorator";
+import Component from "vue-class-component";
 
-@Component({
-  name: "ListingSummary",
-  components: {
-    ListingSave
-  },
-  props: {
-    listingSummary: {
-      type: Object,
-      required: true
-    }
-  }
-})
-export default class ListingSummary extends Vue {
+@Component
+class ListingSummary extends Vue {
   /**
    * @type {vuebnb.ListingSummaryModel}
    */
@@ -42,6 +31,20 @@ export default class ListingSummary extends Vue {
     return { "background-image": `url("${this.listingSummary.thumb}")` };
   }
 }
+
+export default Vue.extend({
+  name: "ListingSummary",
+  components: {
+    ListingSave
+  },
+  props: {
+    listingSummary: {
+      type: Object,
+      required: true
+    }
+  },
+  extends: ListingSummary
+});
 </script>
 
 <style>

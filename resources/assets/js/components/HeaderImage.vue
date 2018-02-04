@@ -10,9 +10,19 @@
 <script>
 import Vue from "vue";
 import ListingSave from "./ListingSave.vue";
-import { Component } from "vue-property-decorator";
+import Component from "vue-class-component";
 
-@Component({
+@Component
+class HeaderImage extends Vue {
+  /**@type {String} */
+  imageUrl;
+
+  get headerImageStyle() {
+    return { "background-image": `url(${this.imageUrl})` };
+  }
+}
+
+export default Vue.extend({
   name: "HeaderImage",
   components: {
     ListingSave
@@ -25,16 +35,9 @@ import { Component } from "vue-property-decorator";
     id: {
       type: Number
     }
-  }
-})
-export default class HeaderImage extends Vue {
-  /**@type {String} */
-  imageUrl;
-
-  get headerImageStyle() {
-    return { "background-image": `url(${this.imageUrl})` };
-  }
-}
+  },
+  extends: HeaderImage
+});
 </script>
 
 <style>

@@ -12,21 +12,10 @@
 <script>
 import Vue from "vue";
 import CarouselControl from "./CarouselControl.vue";
-import { Component } from "vue-property-decorator";
+import Component from "vue-class-component";
 
-@Component({
-  name: "ImageCarousel",
-  components: {
-    CarouselControl
-  },
-  props: {
-    images: {
-      type: Array,
-      required: true
-    }
-  }
-})
-export default class ImageCarousel extends Vue {
+@Component
+class ImageCarousel extends Vue {
   /**
    * @type {Array<String>} 
    */
@@ -57,6 +46,20 @@ export default class ImageCarousel extends Vue {
     return this.images[this.index];
   }
 }
+
+export default Vue.extend({
+	name: "ImageCarousel",
+  components: {
+    CarouselControl
+  },
+  props: {
+    images: {
+      type: Array,
+      required: true
+    }
+  },
+  extends: ImageCarousel
+});
 </script>
 <style>
 .image-carousel img {

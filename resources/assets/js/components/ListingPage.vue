@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<header-image v-if="listing.images[0]" :id="listing.id" :image-url="listing.images[0]" @header-clicked="openModal">
+		<header-image v-if="listing.images[0]" 
+				:id="listing.id" 
+				:image-url="listing.images[0]" 
+				@header-clicked="openModal">
 		</header-image>
 		<div class="listing-container">
 			<div class="heading">
@@ -46,10 +49,28 @@ import FeatureList from "./FeatureList.vue";
 import ExpandableText from "./ExpandableText.vue";
 import routeMixin from "../route-mixin";
 import ListingModel from "../ListingModel";
-import { Component } from "vue-property-decorator";
+import Component from "vue-class-component";
 
-@Component({
-  name: "ListingPage",
+@Component
+class ListingPage extends Vue {
+	
+  listing = ListingModel();
+
+  openModal() {
+    /** @type {ModalWindow} */ (this.$refs.modalwindow).modalOpen = true;
+  }
+
+  /**
+   * @param {vuebnb.ServerDataModel} data
+   */
+  assignData(data) {
+    let resetData = populateAmenitiesAndPrices(data.listing);
+    this.listing = Object.assign({}, this.listing, resetData); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
+  }
+}
+
+export default Vue.extend({
+	name: "ListingPage",
   components: {
     ImageCarousel,
     ModalWindow,
@@ -57,20 +78,9 @@ import { Component } from "vue-property-decorator";
     FeatureList,
     ExpandableText
   },
-  mixins: [routeMixin]
-})
-export default class ListingPage extends Vue {
-  listing = ListingModel();
-
-  openModal() {
-    (/** @type {ModalWindow} */(this.$refs.modalwindow)).modalOpen = true;
-  }
-
-  assignData(data) {
-    let resetData = populateAmenitiesAndPrices(data.listing);
-    this.listing = Object.assign({}, this.listing, resetData); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
-  }
-}
+	mixins: [routeMixin],
+	extends: ListingPage
+});
 </script>
 
 <style>

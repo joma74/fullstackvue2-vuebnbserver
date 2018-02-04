@@ -14,26 +14,23 @@ import sfn from "./../store-function-names";
 import { Component } from "vue-property-decorator";
 import Vuex from "vuex";
 
-@Component({
-  name: "ListingSave",
-  props: {
-    id: Number,
-    asButton: {
-      type: Boolean,
-      default: true
-    }
-  }
-})
-export default class ListingSave extends Vue {
+@Component
+class ListingSave extends Vue {
   /**
    * @type {Number}
    */
   id;
 
+  /**
+   * @type {Boolean}
+   */
+  asButton;
+
   toggleSaved() {
     this.$store.commit(sfn.m_toggleSaved, this.id);
   }
 
+  /** @returns {Boolean} */
   get isListingSaved() {
     return this.$store.state.saved.find(saved => saved === this.id);
   }
@@ -50,6 +47,17 @@ export default class ListingSave extends Vue {
     return this.isListingSaved ? "Saved" : "Save";
   }
 }
+export default Vue.extend({
+  name: "ListingSave",
+  props: {
+    id: Number,
+    asButton: {
+      type: Boolean,
+      default: true
+    }
+  },
+  extends: ListingSave
+});
 </script>
 
 <style>

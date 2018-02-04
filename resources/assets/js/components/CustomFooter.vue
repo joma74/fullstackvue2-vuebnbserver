@@ -1,29 +1,32 @@
 <template>
-    <footer>
-        <div class="hr" />
-        <div :class="containerClass">
-            <p>
-                <img class="icon" src="/images/logo_grey.png" />
-                <span>
-                    <strong>Vuebnb</strong>. A full-stack Vue.js and Laravel demo app
-                </span>
-            </p>
-        </div>
-    </footer>
+  <footer>
+    <div class="hr" />
+    <div :class="containerClass">
+      <p>
+        <img class="icon" src="/images/logo_grey.png" />
+        <span>
+          <strong>Vuebnb</strong>. A full-stack Vue.js and Laravel demo app
+        </span>
+      </p>
+    </div>
+  </footer>
 </template>
 
 <script>
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import Component from "vue-class-component";
 
-@Component({
-  name: "CustomFooter"
-})
-export default class CustomFooter extends Vue {
+@Component
+class CustomFooter extends Vue {
   get containerClass() {
     return `${this.$route.name}-container`;
   }
 }
+
+export default Vue.extend({
+  name: "CustomFooter",
+  extends: CustomFooter
+});
 </script>
 
 <style>

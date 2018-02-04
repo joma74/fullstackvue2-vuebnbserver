@@ -13,10 +13,8 @@
 import Vue from "vue";
 import { Component, Watch } from "vue-property-decorator";
 
-@Component({
-  name: "ModalWindow"
-})
-export default class ModalWindow extends Vue {
+@Component
+class ModalWindow extends Vue {
   
   modalOpen = false;
 
@@ -51,6 +49,11 @@ export default class ModalWindow extends Vue {
     }
   }
 }
+
+export default Vue.extend({
+  name: "ModalWindow",
+  extends: ModalWindow
+});
 </script>
 
 <style>

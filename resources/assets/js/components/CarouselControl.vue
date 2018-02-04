@@ -3,18 +3,10 @@
 </template>
 <script>
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import Component from "vue-class-component";
 
-@Component({
-  name: "CarouselControl",
-  props: {
-    dir: {
-      type: String,
-      required: true
-    }
-  }
-})
-export default class CarouselControl extends Vue {
+@Component
+class CarouselControl extends Vue {
   /** 
    * @type {String} 
    */
@@ -32,6 +24,17 @@ export default class CarouselControl extends Vue {
     return "carousel-control fa fa-2x fa-chevron-" + this.dir;
   }
 }
+
+export default Vue.extend({
+	name: "CarouselControl",
+  props: {
+    dir: {
+      type: String,
+      required: true
+    }
+  },
+  extends: CarouselControl
+});
 </script>
 <style>
 .carousel-control {

@@ -15,15 +15,18 @@
 import Vue from "vue";
 import RouterLink from "vue-router";
 import CustomFooter from "./CustomFooter.vue";
-import { Component } from "vue-property-decorator";
+import Component from "vue-class-component";
 
-@Component({
+@Component
+class App extends Vue {}
+
+export default Vue.extend({
   name: "App",
   components: {
     CustomFooter
-  }
-})
-export default class App extends Vue {}
+  },
+  extends: App
+});
 </script>
 
 <style>

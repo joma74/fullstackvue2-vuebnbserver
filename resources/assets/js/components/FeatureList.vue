@@ -13,10 +13,13 @@
 
 <script>
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import Component from "vue-class-component";
 
-@Component({
-  name: "FeatureList",
+@Component
+class FeatureList extends Vue {}
+
+export default Vue.extend({
+	name: "FeatureList",
   props: {
     title: {
       type: String,
@@ -26,9 +29,9 @@ import { Component } from "vue-property-decorator";
       type: Array,
       required: true
     }
-  }
-})
-export default class FeatureList extends Vue {}
+  },
+  extends: FeatureList
+});
 </script>
 
 <style>

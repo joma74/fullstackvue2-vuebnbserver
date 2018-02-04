@@ -19,34 +19,17 @@
 import Vue from "vue";
 import ListingSummary from "./ListingSummary.vue";
 import CarouselControl from "./CarouselControl.vue";
-import { Component, Prop } from "vue-property-decorator";
+import Component from "vue-class-component";
 
 const ROW_SIZE = 3;
 const LISTING_SUMMARY_WIDTH = 365;
 
-@Component({
-  name: "ListingSummaryGroup",
-  components: {
-    ListingSummary,
-    CarouselControl
-  },
-  props: {
-    country: {
-      type: String,
-      required: true
-    },
-    listingsOfCountry: {
-      type: Array,
-      required: true
-    }
-  }
-})
-export default class ListingSummaryGroup extends Vue {
-
+@Component
+class ListingSummaryGroup extends Vue {
   offset = 0;
 
   /**
-   * @type {vuebnb.ListingsSummaryModel}
+   * @type {vuebnb.ListingSummaryModel[]}
    */
   listingsOfCountry;
 
@@ -79,6 +62,25 @@ export default class ListingSummaryGroup extends Vue {
     };
   }
 }
+
+export default Vue.extend({
+  name: "ListingSummaryGroup",
+  components: {
+    ListingSummary,
+    CarouselControl
+  },
+  props: {
+    country: {
+      type: String,
+      required: true
+    },
+    listingsOfCountry: {
+      type: Array,
+      required: true
+    }
+  },
+  extends: ListingSummaryGroup
+});
 </script>
 
 <style>
