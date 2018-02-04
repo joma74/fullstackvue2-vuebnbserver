@@ -48,7 +48,8 @@ mix
     },
     output: {
       devtoolModuleFilenameTemplate(info) {
-        return "file:///" + encodeURI(info.absoluteResourcePath);
+        const isJsFile = info.resourcePath.match(/^\.\/src\/.*\.js$/)
+        return `webpack:///${isJsFile ? info.resourcePath.replace('./', '') : info.resourcePath}`
       },
       devtoolFallbackModuleFilenameTemplate(info) {
         return (
@@ -61,7 +62,7 @@ if (!mix.inProduction()) {
   mix.sourceMaps(true, "cheap-source-map");
 }
 
-if (mix.inProduction) {
+if (mix.inProduction()) {
   mix.webpackConfig({
     profile: true,
     plugins: [
