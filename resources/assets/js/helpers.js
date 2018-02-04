@@ -2,14 +2,26 @@ import ListingModel from "./ListingModel";
 import ListingCountryWithSummaryModel from "./ListingCountryWithSummaryModel";
 
 let amenities = new Map();
-amenities.set("amenity_wifi", { title: "Wireless Internet", icon: "fa-wifi" });
+amenities.set("amenity_wifi", {
+  title: "Wireless Internet",
+  icon: "fa-wifi"
+});
 amenities.set("amenity_pets_allowed", {
   title: "Pets Allowed",
   icon: "fa-paw"
 });
-amenities.set("amenity_tv", { title: "TV", icon: "fa-television" });
-amenities.set("amenity_kitchen", { title: "Kitchen", icon: "fa-cutlery" });
-amenities.set("amenity_breakfast", { title: "Breakfast", icon: "fa-coffee" });
+amenities.set("amenity_tv", {
+  title: "TV",
+  icon: "fa-television"
+});
+amenities.set("amenity_kitchen", {
+  title: "Kitchen",
+  icon: "fa-cutlery"
+});
+amenities.set("amenity_breakfast", {
+  title: "Breakfast",
+  icon: "fa-coffee"
+});
 amenities.set("amenity_laptop", {
   title: "Laptop friendly workspace",
   icon: "fa-laptop"
@@ -21,20 +33,28 @@ prices.set("price_extra_people", "Extra people");
 prices.set("price_weekly_discount", "Weekly discount");
 prices.set("price_monthly_discount", "Monthly discount");
 
-let populateAmenitiesAndPrices = function(state) {
-  if (!state) return ListingModel();
+/**
+ *
+ * @param {vuebnb.ServerListingModel} serverListing
+ * @returns {vuebnb.ListingModel}
+ */
+let populateAmenitiesAndPrices = function(serverListing) {
+  if (!serverListing) {
+    console.warn("Parameter listings is null or undefined;");
+    return ListingModel();
+  }
   var listingModel = ListingModel();
-  selCopy(state, listingModel, "id", "title", "address", "about");
-  for (let key in state) {
+  selCopy(serverListing, listingModel, "id", "title", "address", "about");
+  for (let key in serverListing) {
     let arr = key.split("_");
     if (arr[0] === "amenity") {
       listingModel.amenities.push(key);
     }
     if (arr[0] === "price") {
-      listingModel.prices.push({ title: key, value: state[key] });
+      listingModel.prices.push({ title: key, value: serverListing[key] });
     }
     if (arr[0] === "image") {
-      listingModel.images.push(state[key]);
+      listingModel.images.push(serverListing[key]);
     }
   }
 
@@ -63,17 +83,24 @@ function selCopy(from, to, ...selPNames) {
 
 export { populateAmenitiesAndPrices };
 
-let groupByCountry = function(listings) {
-  if (!listings) return ListingCountryWithSummaryModel();
-  return listings.reduce(function(rv, x) {
+/**
+ * @param {vuebnb.ServerSummaryListingModel[]} serverListings
+ * @return {vuebnb.ListingCountryWithSummaryModel[]}
+ */
+let groupByCountry = function(serverListings) {
+  if (!serverListings) {
+    console.warn("Parameter listings is null or undefined;");
+    return ListingCountryWithSummaryModel();
+  }
+  return serverListings.reduce(function(accumulator, listingModel) {
     let key = ["Taiwan", "Poland", "Cuba"].find(
-      country => x.address.indexOf(country) > -1
+      country => listingModel.address.indexOf(country) > -1
     );
-    if (!rv[key]) {
-      rv[key] = [];
+    if (!accumulator[key]) {
+      accumulator[key] = [];
     }
-    rv[key].push(x);
-    return rv;
+    accumulator[key].push(listingModel);
+    return accumulator;
   }, {});
 };
 
