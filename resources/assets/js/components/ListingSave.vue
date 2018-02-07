@@ -12,7 +12,8 @@
 import Vue from "vue";
 import sfn from "./../store-function-names";
 import { Component } from "vue-property-decorator";
-import Vuex from "vuex";
+import Vuex, { Store } from "vuex";
+import store from "../store";
 
 @Component
 class ListingSave extends Vue {
@@ -27,13 +28,21 @@ class ListingSave extends Vue {
   asButton;
 
   toggleSaved() {
-    this.$store.commit(sfn.m_toggleSaved, this.id);
+    let theStore = /** @type {store.VuebnbStore} */ (this.$store);
+    // theStore.commit(sfn.m_toggleSaved, { id: this.id });
+    theStore.commit({
+      type: sfn.m_toggleSaved,
+      id: this.id
+    });
   }
 
   /** @returns {Boolean} */
   get isListingSaved() {
-    return this.$store.state.saved.find(saved => saved === this.id);
+    let theStoreState = /** @type {store.VuebnbStoreState} */ (this.$store
+      .state);
+    return theStoreState.saved.includes(this.id);
   }
+
   get classes() {
     let saved = this.isListingSaved;
     return {
@@ -43,6 +52,7 @@ class ListingSave extends Vue {
       "fa-heart-o": !saved
     };
   }
+
   get message() {
     return this.isListingSaved ? "Saved" : "Save";
   }

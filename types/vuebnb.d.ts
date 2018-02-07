@@ -1,3 +1,6 @@
+//// MODEL
+///// SERVER USAGE MODELS
+
 export declare interface ServerDataModel {
   listings: ServerSummaryListingModel[]
   listing:  ServerListingModel
@@ -33,6 +36,8 @@ export declare interface ServerListingModel {
   image_4: string;
 }
 
+///// CLIENT USAGE MODELS
+
 export declare interface ListingSummaryModel {
   id: number;
   title: string;
@@ -65,4 +70,21 @@ declare interface Prices {
   title: title;
 }
 
-export as namespace vuebnb;
+//// STORE
+/**
+ * This does not work unless you comment out
+ * ``` node_modules/vuex/types/vue.d.ts
+ * declare module "vue/types/vue" {
+ *    interface Vue {
+ *      $store: Store<any>;
+ *    }
+ * }
+ * ```
+ */
+// import { Store } from "vuex";
+
+// export declare module "vue/types/vue" {
+//   interface Vue{
+//     $store: Store<vuebnb.VuebnbStoreState>;
+//   }
+// }
