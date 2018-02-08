@@ -1,6 +1,11 @@
-import ListingModel from "./ListingModel";
-import ListingCountryWithSummaryModel from "./ListingCountryWithSummaryModel";
+/// <reference path="../../../types/vuebnb.d.ts"/>
 
+import ListingModel from "./ListingModel";
+import ListingCountriesWithSummaryModel from "./ListingCountriesWithSummaryModel";
+
+/** 
+ * @type {Map<string, {title: string, icon: string}}>} 
+ */
 let amenities = new Map();
 amenities.set("amenity_wifi", {
   title: "Wireless Internet",
@@ -27,6 +32,9 @@ amenities.set("amenity_laptop", {
   icon: "fa-laptop"
 });
 
+/** 
+ * @type {Map<string, string>} 
+ */
 let prices = new Map();
 prices.set("price_per_night", "Per night");
 prices.set("price_extra_people", "Extra people");
@@ -85,12 +93,11 @@ export { populateAmenitiesAndPrices };
 
 /**
  * @param {vuebnb.ServerSummaryListingModel[]} serverListings
- * @return {vuebnb.ListingCountryWithSummaryModel[]}
  */
 let groupByCountry = function(serverListings) {
   if (!serverListings) {
     console.warn("Parameter listings is null or undefined;");
-    return ListingCountryWithSummaryModel();
+    return ListingCountriesWithSummaryModel();
   }
   return serverListings.reduce(function(accumulator, listingModel) {
     let key = ["Taiwan", "Poland", "Cuba"].find(
@@ -101,7 +108,7 @@ let groupByCountry = function(serverListings) {
     }
     accumulator[key].push(listingModel);
     return accumulator;
-  }, {});
+  }, ListingCountriesWithSummaryModel());
 };
 
 export { groupByCountry };

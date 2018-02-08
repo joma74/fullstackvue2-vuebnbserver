@@ -2,8 +2,8 @@
 
 export default function ListingCountriesWithSummaryModel() {
   /**
-   * @type {vuebnb.ListingCountryWithSummaryModel[]}
+   * @type {vuebnb.ListingCountriesWithSummaryModel}
    */
-  let result = [];
+  let result = {};
   return result;
 }

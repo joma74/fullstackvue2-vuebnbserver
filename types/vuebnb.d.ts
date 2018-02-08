@@ -45,9 +45,8 @@ export declare interface ListingSummaryModel {
   thumb: string;
 }
 
-export declare interface ListingCountryWithSummaryModel {
-  country: string;
-  listings: ListingsSummaryModel[];
+export declare interface ListingCountriesWithSummaryModel {
+  [country: string]: ListingSummaryModel[];
 }
 
 export declare interface ListingModel {
@@ -70,6 +69,8 @@ declare interface Prices {
   title: title;
 }
 
+export as namespace vuebnb;
+
 //// STORE
 /**
  * This does not work unless you comment out
@@ -88,3 +89,4 @@ declare interface Prices {
 //     $store: Store<vuebnb.VuebnbStoreState>;
 //   }
 // }
+
