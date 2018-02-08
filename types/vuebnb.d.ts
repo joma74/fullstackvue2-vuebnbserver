@@ -45,9 +45,8 @@ export declare interface ListingSummaryModel {
   thumb: string;
 }
 
-export declare interface ListingCountryWithSummaryModel {
-  country: string;
-  listings: ListingsSummaryModel[];
+export declare interface ListingCountriesWithSummaryModel {
+  [country: string]: ListingSummaryModel[];
 }
 
 export declare interface ListingModel {
@@ -90,3 +89,4 @@ export as namespace vuebnb;
 //     $store: Store<vuebnb.VuebnbStoreState>;
 //   }
 // }
+
