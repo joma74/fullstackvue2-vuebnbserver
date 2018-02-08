@@ -4,7 +4,7 @@
 export declare interface ServerDataModel {
   listings: ServerSummaryListingModel[]
   listing:  ServerListingModel
-  path: string;
+  path: string | undefined;
 }
 
 export declare interface ServerSummaryListingModel {
@@ -69,6 +69,8 @@ declare interface Prices {
   value: string;
   title: title;
 }
+
+export as namespace vuebnb;
 
 //// STORE
 /**

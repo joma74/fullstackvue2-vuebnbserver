@@ -1,20 +1,33 @@
 import { sfn } from "./store-function-names";
+import { names } from "./router-names";
+import models from "../../../types/vuebnb"
 
 export interface VuebnbStoreState {
   saved: number[];
+  listing_summaries: vuebnb.ServerSummaryListingModel[];
+  listings: vuebnb.ServerListingModel[];
 }
 
 interface ToggleSavePayloadObject extends ToggleSavePayload {
   type: sfn.m_toggleSaved;
 }
 
-type PayloadObjects = ToggleSavePayloadObject;
+interface AddDataPayloadObject extends AddDataPayload {
+  type: sfn.m_addData;
+}
+
+type PayloadObjects = ToggleSavePayloadObject | AddDataPayloadObject;
 
 export interface ToggleSavePayload {
   id: number;
 }
 
-type Payloads = ToggleSavePayload;
+export interface AddDataPayload {
+  data: vuebnb.ServerDataModel;
+  routeName: names
+}
+
+type Payloads = ToggleSavePayload | AddDataPayload;
 
 export declare interface VuebnbStoreMethods {
   commit(mutationMethods: sfn, payload: Payloads);
