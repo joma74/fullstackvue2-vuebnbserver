@@ -50,16 +50,11 @@ mix
       devtoolModuleFilenameTemplate(info) {
         const isJsFile = info.resourcePath.match(/^\.\/src\/.*\.js$/)
         return `webpack:///${isJsFile ? info.resourcePath.replace('./', '') : info.resourcePath}`
-      },
-      devtoolFallbackModuleFilenameTemplate(info) {
-        return (
-          "file:///" + encodeURI(info.absoluteResourcePath) + "?" + info.hash
-        );
       }
     }
   });
 if (!mix.inProduction()) {
-  mix.sourceMaps(true, "cheap-source-map");
+  mix.sourceMaps(true, "source-map");
 }
 
 if (mix.inProduction()) {
