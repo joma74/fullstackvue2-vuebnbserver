@@ -1,4 +1,5 @@
 /// <reference path="./store.d.ts"/>
+//@ts-check
 
 import Vue from "vue";
 import Vuex, { Store } from "vuex";
@@ -21,6 +22,17 @@ let theStore = new Vuex.Store({
     listing_summaries: [],
     listings: []
   },
+  getters: {
+    savedSummaries(state) {
+      return state.listing_summaries.filter(
+        item => state.saved.indexOf(item.id) > -1
+      );
+    },
+    getListing(state) {
+      return /** @param {number} id */ id =>
+        state.listings.find(listing => id == listing.id);
+    }
+  },
   mutations: {
     /**
      * @param {ToggleSavePayload} payload
@@ -39,11 +51,15 @@ let theStore = new Vuex.Store({
     [sfn.m_addData]: function(state, payload) {
       const { data, routeName } = payload;
       if (routeName === rn.name_home) {
-          state.listings.push(data.listing);
-      } else if (routeName === rn.name_listing) {
         state.listing_summaries = data.listings;
+      } else if (routeName === rn.name_listing) {
+        state.listings.push(data.listing);
       } else {
-        console.warn(`[store.mutation.${sfn.m_addData}] Given route by name of >>${ routeName }<< was not processed.`);
+        console.warn(
+          `[store.mutation.${
+            sfn.m_addData
+          }] Given route by name of >>${routeName}<< was not processed.`
+        );
       }
     }
   }

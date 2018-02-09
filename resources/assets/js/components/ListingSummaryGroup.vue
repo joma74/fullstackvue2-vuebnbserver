@@ -72,11 +72,13 @@ export default Vue.extend({
   props: {
     country: {
       type: String,
-      required: true
+      required: true,
+      note: "those >listingsOfCountry< belongs to"
     },
     listingsOfCountry: {
       type: Array,
-      required: true
+      required: true,
+      note: "belonging to that >country<"
     }
   },
   extends: ListingSummaryGroup
