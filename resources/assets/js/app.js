@@ -5,6 +5,7 @@ import store from "./store";
 import "./../css/style.css";
 
 
+// @ts-ignore
 var app = new Vue({
   el: "#app",
   render: h => h(App),
