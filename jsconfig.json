@@ -24,7 +24,7 @@
         "node_modules/vue-router/types/vue.d.ts"
     ],
     "include": [
-        "src/**/*",
+        "resources/assets/js/**/*",
         "types/**/*"
     ],
     "typeAcquisition": {
