@@ -1,8 +1,3 @@
-declare module "*.vue" {
-    import Vue from 'vue';
-    export default Vue;
-}
-
 /**
  * Augment the typings of Vue.js
  */
@@ -34,15 +29,16 @@ declare module "vue/types/options" {
 import Vue from "vue";
 import { ComponentOptions } from "vue";
 import { Store } from "vuex/types/index";
+import { VuebnbStoreState } from "resources/assets/js/store";
 
 declare module "vue/types/vue" {
   interface Vue {
-    $store: Store<any>;
+    $store: Store<VuebnbStoreState>;
   }
 }
 
 declare module "vue/types/options" {
   interface ComponentOptions<V extends Vue> {
-    store?: Store<any>;
+    store?: Store<VuebnbStoreState>;
   }
 }
