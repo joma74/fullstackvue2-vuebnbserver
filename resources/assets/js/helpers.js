@@ -1,4 +1,5 @@
 /// <reference path="../../../types/vuebnb.d.ts"/>
+//@ts-check
 
 import ListingModel from "./ListingModel";
 import ListingCountriesWithSummaryModel from "./ListingCountriesWithSummaryModel";
@@ -43,7 +44,7 @@ prices.set("price_monthly_discount", "Monthly discount");
 
 /**
  *
- * @param {vuebnb.ServerListingModel} serverListing
+ * @param {vuebnb.ServerListingModel|undefined} serverListing
  * @returns {vuebnb.ListingModel}
  */
 let populateAmenitiesAndPrices = function(serverListing) {

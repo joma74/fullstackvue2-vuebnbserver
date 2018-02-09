@@ -1,4 +1,5 @@
 /// <reference path="../../../types/vuebnb.d.ts"/>
+//@ts-check
 
 export default function ListingModel() {
   /**
