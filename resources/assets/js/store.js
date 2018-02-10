@@ -1,5 +1,4 @@
 /// <reference path="./store.d.ts"/>
-//@ts-check
 
 import Vue from "vue";
 import Vuex, { Store } from "vuex";
