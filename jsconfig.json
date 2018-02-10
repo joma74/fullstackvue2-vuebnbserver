@@ -19,10 +19,12 @@
         "dist",
         "node_modules",
         "target",
-        "profiles"
+        "profiles",
+        "node_modules/vuex/types/vue.d.ts",
+        "node_modules/vue-router/types/vue.d.ts"
     ],
     "include": [
-        "src/**/*",
+        "resources/assets/js/**/*",
         "types/**/*"
     ],
     "typeAcquisition": {

@@ -1,9 +1,6 @@
 <template>
 	<div>
-		<header-image v-if="listing.images[0]" 
-				:id="listing.id" 
-				:image-url="listing.images[0]" 
-				@header-clicked="openModal">
+		<header-image v-if="listing.images[0]" :id="listing.id" :image-url="listing.images[0]" @header-clicked="openModal">
 		</header-image>
 		<div class="listing-container">
 			<div class="heading">
@@ -43,34 +40,41 @@ import sample from "../data";
 import "core-js/fn/object/assign";
 
 import ImageCarousel from "./ImageCarousel.vue";
-import ModalWindow from "./ModalWindow.vue";
+import ModalWindow, { ModalWindowClass } from "./ModalWindow.vue";
 import HeaderImage from "./HeaderImage.vue";
 import FeatureList from "./FeatureList.vue";
 import ExpandableText from "./ExpandableText.vue";
-import routeMixin from "../route-mixin";
 import ListingModel from "../ListingModel";
 import Component from "vue-class-component";
+import { VuebnbStore, VuebnbStoreGetters } from "../store";
 
 @Component
-class ListingPage extends Vue {
-	
-  listing = ListingModel();
-
+export class ListingPageClass extends Vue {
   openModal() {
-    /** @type {ModalWindow} */ (this.$refs.modalwindow).modalOpen = true;
+    /** @type {ModalWindowClass} */ (this.$refs.modalwindow).modalOpen = true;
   }
 
-  /**
-   * @param {vuebnb.ServerDataModel} data
-   */
-  assignData(data) {
-    let resetData = populateAmenitiesAndPrices(data.listing);
-    this.listing = Object.assign({}, this.listing, resetData); // See https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats
+  get listing() {
+    let theStoreGetters = /** @type {VuebnbStoreGetters} */ (this.$store
+      .getters);
+    let serverListingModel = theStoreGetters.getListing(
+      parseInt(this.$route.params.id)
+    );
+    if (!serverListingModel)
+      console.warn(
+        `[${
+          ListingPageClass.name
+        }.listing] Listing for the given route id of >>${
+          this.$route.params.id
+        }<< was not found in the store.`
+      );
+    let listing = populateAmenitiesAndPrices(serverListingModel);
+    return listing;
   }
 }
 
 export default Vue.extend({
-	name: "ListingPage",
+  name: "ListingPage",
   components: {
     ImageCarousel,
     ModalWindow,
@@ -78,8 +82,7 @@ export default Vue.extend({
     FeatureList,
     ExpandableText
   },
-	mixins: [routeMixin],
-	extends: ListingPage
+  extends: ListingPageClass
 });
 </script>
 

@@ -1,8 +1,6 @@
 /// <reference path="../../../types/vuebnb.d.ts"/>
+//@ts-check
 
-/**
- * @return {vuebnb.ListingModel}
- */
 export default function ListingModel() {
   /**
    * @type {vuebnb.ListingModel}

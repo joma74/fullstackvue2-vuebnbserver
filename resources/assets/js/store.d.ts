@@ -1,26 +1,45 @@
 import { sfn } from "./store-function-names";
+import { names } from "./router-names";
+import models from "../../../types/vuebnb";
 
 export interface VuebnbStoreState {
   saved: number[];
+  listing_summaries: vuebnb.ServerSummaryListingModel[];
+  listings: vuebnb.ServerListingModel[];
 }
 
 interface ToggleSavePayloadObject extends ToggleSavePayload {
   type: sfn.m_toggleSaved;
 }
 
-type PayloadObjects = ToggleSavePayloadObject;
+interface AddDataPayloadObject extends AddDataPayload {
+  type: sfn.m_addData;
+}
+
+type PayloadObjects = ToggleSavePayloadObject | AddDataPayloadObject;
 
 export interface ToggleSavePayload {
   id: number;
 }
 
-type Payloads = ToggleSavePayload;
-
-export declare interface VuebnbStoreMethods {
-  commit(mutationMethods: sfn, payload: Payloads);
-  commit(payloadObject: PayloadObjects);
+export interface AddDataPayload {
+  data: vuebnb.ServerDataModel;
+  routeName: names;
 }
 
-export declare interface VuebnbStore extends VuebnbStoreMethods {
+type Payloads = ToggleSavePayload | AddDataPayload;
+
+export declare interface VuebnbStoreMethods {
+  commit(mutationMethods: sfn, payload: Payloads): void;
+  commit(payloadObject: PayloadObjects): void;
+}
+
+export declare interface VuebnbStoreGetters {
+  savedSummaries(): vuebnb.ServerSummaryListingModel[];
+  getListing(id: number): vuebnb.ServerListingModel | undefined;
+}
+
+export declare interface VuebnbStore extends VuebnbStoreMethods, VuebnbStoreGetters {
   state: VuebnbStoreState;
+  getters: VuebnbStoreGetters;
 }
