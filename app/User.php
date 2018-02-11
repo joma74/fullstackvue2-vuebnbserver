@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'saved',
     ];
 
     /**
@@ -25,5 +25,12 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    /** 
+     * Now we can treat the saved attribute as an array, even though it's stored as a string in the database 
+     */
+    protected $casts = [
+        'saved' => 'array'
     ];
 }

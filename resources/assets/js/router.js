@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage.vue";
 // @ts-ignore
 import ListingPage from "./components/ListingPage.vue";
 import SavedPage from "./components/SavedPage.vue";
+import LoginPage from "./components/LoginPage.vue";
 import rn from "./router-names";
 import axios, { AxiosResponse } from "axios";
 import store, {
@@ -35,6 +36,11 @@ let router = new VueRouter({
       path: "/saved",
       component: SavedPage,
       name: rn.name_saved
+    },
+    {
+      path: "/login",
+      component: LoginPage,
+      name: rn.name_login
     }
   ],
   scrollBehavior(to, from, savedPosition) {
@@ -89,7 +95,8 @@ router.beforeEach((to, from, next) => {
 
   if (
     isOnRoute(to, rn.name_listing) &&
-    hasListingInStore(parseInt(to.params.id), theStore)
+    hasListingInStore(parseInt(to.params.id), theStore) ||
+    isOnRoute(to, rn.name_login)
   ) {
     next();
   } else if (isOnRoute(to, rn.name_home) && hasSummariesInStore(theStore)) {

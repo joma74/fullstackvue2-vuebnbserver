@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="{{ asset('css/vue-style.css') }}" type="text/css">
 	<script type="text/javascript">
 		window.vuebnb_listing_model = "{!! addslashes($data) !!}";
+		window.csrf_token = "{{ csrf_token() }}"
 	</script>
 </head>
 

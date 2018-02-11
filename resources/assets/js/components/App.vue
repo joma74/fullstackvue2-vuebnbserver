@@ -9,6 +9,15 @@
         <li>
           <router-link :to="{ name: 'saved' }">Saved</router-link>
         </li>
+        <li>
+          <router-link :to="{ name: 'login' }">Log In</router-link>
+        </li>
+        <li>
+          <a @click="logout">Log Out</a>
+          <form style="display: hidden" action="/logout" method="POST" id="logout">
+            <input type="hidden" name="_token" :value="csrf_token" />
+          </form>
+        </li>
       </ul>
     </div>
     <router-view></router-view>
@@ -22,8 +31,27 @@ import RouterLink from "vue-router";
 import CustomFooter from "./CustomFooter.vue";
 import Component from "vue-class-component";
 
+const LOGOUT_ELEMENTID = "logout";
+
 @Component
-export class AppClass extends Vue {}
+export class AppClass extends Vue {
+  csrf_token = window.csrf_token;
+
+  logout(){
+    let logoutForm = /** @type {HTMLFormElement} */ document.getElementById(LOGOUT_ELEMENTID);
+    if(!logoutForm){
+      console.warn(
+        `[${
+          AppClass.name
+        }.logout] HTMLElement for the given id of >>${
+          LOGOUT_ELEMENTID
+        }<< was not found in the store.`
+      );
+    }else {
+      logoutForm.submit();
+    }
+  }
+}
 
 export default Vue.extend({
   name: "App",
