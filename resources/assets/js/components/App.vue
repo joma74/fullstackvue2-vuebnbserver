@@ -37,17 +37,17 @@ const LOGOUT_ELEMENTID = "logout";
 export class AppClass extends Vue {
   csrf_token = window.csrf_token;
 
-  logout(){
-    let logoutForm = /** @type {HTMLFormElement} */ document.getElementById(LOGOUT_ELEMENTID);
-    if(!logoutForm){
+  logout() {
+    let logoutForm = /** @type {HTMLFormElement} */ (document.getElementById(
+      LOGOUT_ELEMENTID
+    ));
+    if (!logoutForm) {
       console.warn(
         `[${
           AppClass.name
-        }.logout] HTMLElement for the given id of >>${
-          LOGOUT_ELEMENTID
-        }<< was not found in the store.`
+        }.logout] HTMLElement for the given id of >>${LOGOUT_ELEMENTID}<< was not found in the store.`
       );
-    }else {
+    } else {
       logoutForm.submit();
     }
   }
