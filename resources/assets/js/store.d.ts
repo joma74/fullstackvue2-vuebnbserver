@@ -6,6 +6,7 @@ export interface VuebnbStoreState {
   saved: number[];
   listing_summaries: vuebnb.ServerSummaryListingModel[];
   listings: vuebnb.ServerListingModel[];
+  auth: boolean;
 }
 
 interface ToggleSavePayloadObject extends ToggleSavePayload {

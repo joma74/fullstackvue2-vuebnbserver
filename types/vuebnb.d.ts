@@ -5,6 +5,7 @@ export declare interface ServerDataModel {
   listings: ServerSummaryListingModel[]
   listing:  ServerListingModel
   path: string | undefined;
+  auth: boolean;
 }
 
 export declare interface ServerSummaryListingModel {

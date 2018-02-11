@@ -9,6 +9,7 @@ import {
   ToggleSavePayload,
   AddDataPayloadObject
 } from "./store";
+import router from "./router";
 
 Vue.use(Vuex);
 
@@ -19,7 +20,8 @@ let theStore = new Vuex.Store({
   state: {
     saved: [],
     listing_summaries: [],
-    listings: []
+    listings: [],
+    auth: false
   },
   getters: {
     savedSummaries(state) {
@@ -37,11 +39,15 @@ let theStore = new Vuex.Store({
      * @param {ToggleSavePayload} payload
      */
     [sfn.m_toggleSaved]: function(state, payload) {
-      let index = state.saved.findIndex(saved => saved === payload.id);
-      if (index === -1) {
-        state.saved.push(payload.id);
-      } else {
-        state.saved.splice(index, 1);
+      if(state.auth){
+        let index = state.saved.findIndex(saved => saved === payload.id);
+        if (index === -1) {
+          state.saved.push(payload.id);
+        } else {
+          state.saved.splice(index, 1);
+        }
+      }else{
+        router.push("/login");
       }
     },
     /**
@@ -49,6 +55,9 @@ let theStore = new Vuex.Store({
      */
     [sfn.m_addData]: function(state, payload) {
       const { data, routeName } = payload;
+      if(data.auth){
+        state.auth = data.auth;
+      }
       if (routeName === rn.name_home) {
         state.listing_summaries = data.listings;
       } else if (routeName === rn.name_listing) {
