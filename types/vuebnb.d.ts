@@ -40,10 +40,10 @@ export declare interface ServerListingModel {
 ///// CLIENT USAGE MODELS
 
 export declare interface ListingSummaryModel {
-  id: number;
-  title: string;
-  price_per_night: string;
-  thumb: string;
+  id: number | undefined | null;
+  title: string | undefined | null;
+  price_per_night: string | undefined | null;
+  thumb: string | undefined | null;
 }
 
 export declare interface ListingCountriesWithSummaryModel {
@@ -51,10 +51,10 @@ export declare interface ListingCountriesWithSummaryModel {
 }
 
 export declare interface ListingModel {
-  id: number;
-  title: string;
-  address: string;
-  about: string;
+  id: number | undefined | null;
+  title: string | undefined | null;
+  address: string | undefined | null;
+  about: string | undefined | null;
   amenities: Amenity[];
   prices: Prices[];
   images: string[];

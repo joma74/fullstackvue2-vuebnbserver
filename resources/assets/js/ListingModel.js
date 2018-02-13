@@ -7,12 +7,12 @@ export default function ListingModel() {
    */
   let initialData = {
     id: null,
-    about: null,
     title: null,
     address: null,
+    about: null,
     amenities: [],
     prices: [],
     images: []
   };
   return initialData;
-};
+}

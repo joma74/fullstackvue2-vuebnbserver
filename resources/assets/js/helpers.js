@@ -4,8 +4,12 @@
 import ListingModel from "./ListingModel";
 import ListingCountriesWithSummaryModel from "./ListingCountriesWithSummaryModel";
 
-/** 
- * @type {Map<string, {title: string, icon: string}}>} 
+/**
+ * @typedef {Object} TitleIcon
+ * @property {string} title
+ * @property {string} icon
+ *
+ * @type {Map<string, TitleIcon>}
  */
 let amenities = new Map();
 amenities.set("amenity_wifi", {
@@ -33,8 +37,8 @@ amenities.set("amenity_laptop", {
   icon: "fa-laptop"
 });
 
-/** 
- * @type {Map<string, string>} 
+/**
+ * @type {Map<string, string>}
  */
 let prices = new Map();
 prices.set("price_per_night", "Per night");
@@ -101,13 +105,24 @@ let groupByCountry = function(serverListings) {
     return ListingCountriesWithSummaryModel();
   }
   return serverListings.reduce(function(accumulator, listingModel) {
-    let key = ["Taiwan", "Poland", "Cuba"].find(
+    let countries = ["Taiwan", "Poland", "Cuba"];
+    let country = countries.find(
       country => listingModel.address.indexOf(country) > -1
     );
-    if (!accumulator[key]) {
-      accumulator[key] = [];
+    if (!country) {
+      console.warn(
+        `[${arguments.callee.toString()}] adress >>${
+          listingModel.address
+        }<< of current listing id ${
+          listingModel.id
+        } did not match any country of ${countries}.`
+      );
+    } else {
+      if (!accumulator[country]) {
+        accumulator[country] = [];
+      }
+      accumulator[country].push(listingModel);
     }
-    accumulator[key].push(listingModel);
     return accumulator;
   }, ListingCountriesWithSummaryModel());
 };
