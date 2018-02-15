@@ -9,7 +9,7 @@
     "bundle-stats": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "validate-typescript": "node_modules/.bin/tsc --project /home/joerg/entwicklung/homestead/fullstackvue2-vuebnbserver/jsconfig.json --noEmit true --watch true"
+    "validate-typescript": "node_modules/.bin/tsc --project /home/joma/entwicklung/homesteadcode/fullstackvue2-vuebnbserver/jsconfig.json --noEmit true --watch true"
   },
   "devDependencies": {
     "axios": "^0.17",
@@ -21,6 +21,7 @@
     "laravel-mix": "^1.4",
     "open-sans-all": "^0.1.3",
     "stats-webpack-plugin": "^0.6.2",
+    "typescript": "^2.7.2",
     "vue": "^2.5.3",
     "vue-class-component": "^6.1.2",
     "vue-property-decorator": "^6.0.0",
