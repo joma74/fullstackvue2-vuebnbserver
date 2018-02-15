@@ -9,11 +9,11 @@ export interface VuebnbStoreState {
   auth: boolean;
 }
 
-interface ToggleSavePayloadObject extends ToggleSavePayload {
+export interface ToggleSavePayloadObject extends ToggleSavePayload {
   type: sfn.m_toggleSaved;
 }
 
-interface AddDataPayloadObject extends AddDataPayload {
+export interface AddDataPayloadObject extends AddDataPayload {
   type: sfn.m_addData;
 }
 
@@ -35,12 +35,17 @@ export declare interface VuebnbStoreMethods {
   commit(payloadObject: PayloadObjects): void;
 }
 
+export declare interface VuebnbStoreActions {
+  dispatch(actionMethods: sfn, payload: Payloads): void;
+  dispatch(payloadObject: PayloadObjects): void;
+}
+
 export declare interface VuebnbStoreGetters {
   savedSummaries(): vuebnb.ServerSummaryListingModel[];
   getListing(id: number): vuebnb.ServerListingModel | undefined;
 }
 
-export declare interface VuebnbStore extends VuebnbStoreMethods, VuebnbStoreGetters {
+export declare interface VuebnbStore extends VuebnbStoreMethods, VuebnbStoreActions, VuebnbStoreGetters {
   state: VuebnbStoreState;
   getters: VuebnbStoreGetters;
 }
