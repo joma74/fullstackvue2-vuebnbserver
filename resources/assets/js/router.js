@@ -84,7 +84,7 @@ function hasSummariesInStore(theStore) {
  * @param {vuebnb.ServerDataModel} serverData
  */
 function isOnRouteSameAsServerDataPath(to, serverData) {
-  return !serverData.path || to.path != serverData.path;
+  return !serverData.path || to.path == serverData.path;
 }
 
 router.beforeEach((to, from, next) => {
@@ -101,7 +101,9 @@ router.beforeEach((to, from, next) => {
     next();
   } else if (isOnRoute(to, rn.name_home) && hasSummariesInStore(theStore)) {
     next();
-  } else if (isOnRouteSameAsServerDataPath(to, serverData)) {
+  } else if (isOnRoute(to, rn.name_saved) && hasSummariesInStore(theStore)) {
+    next();
+  } else if (!isOnRouteSameAsServerDataPath(to, serverData)) {
     axios.get(`/api${to.path}`).then(response => {
       const { data } = response;
       theStore.commit(
@@ -121,6 +123,10 @@ router.beforeEach((to, from, next) => {
         data: serverData
       })
     );
+    serverData.saved.forEach(id => theStore.commit(/** @type {store.ToggleSavePayloadObject} */ ({
+      type: sfn.m_toggleSaved,
+      id: id
+    })));
     next();
   }
 });
