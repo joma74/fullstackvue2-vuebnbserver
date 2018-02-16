@@ -14,6 +14,11 @@ import {
 import router from "./router";
 import axios from "axios";
 
+axios.defaults.headers.common = {
+  "X-Requested-With": "XMLHttpRequest",
+  "X-CSRF-TOKEN": window.csrf_token
+};
+
 Vue.use(Vuex);
 
 let theStore = new Vuex.Store({
@@ -42,13 +47,14 @@ let theStore = new Vuex.Store({
       let theState = context.state;
       if (theState.auth) {
         let thePayload = /** @type {ToggleSavePayload} */ (payload);
-        let saveId = thePayload.id;
+        let id = thePayload.id;
         let theStoreMethods = /** @type {VuebnbStoreMethods} */ (context);
-        axios.post("api/user/toggle_saved", saveId).then(() =>
+        axios.post("/api/user/toggle_saved", { id }).then(() => // hint: leading / in path means absolute, else relative to browser page
+          // hint: { id } generates { id: 1 };, id is the expected key on the server
           theStoreMethods.commit(
             /** @type {ToggleSavePayloadObject} */ ({
               type: sfn.m_toggleSaved,
-              id: saveId
+              id: id
             })
           )
         );
