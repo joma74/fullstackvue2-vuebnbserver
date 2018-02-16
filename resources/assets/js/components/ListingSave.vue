@@ -28,10 +28,9 @@ class ListingSave extends Vue {
   asButton;
 
   toggleSaved() {
-    let theStore = /** @type {store.VuebnbStore} */ (this.$store);
-    // theStore.commit(sfn.m_toggleSaved, { id: this.id });
-    theStore.commit(/** @type {store.ToggleSavePayloadObject} */({
-      type: sfn.m_toggleSaved,
+    let theStore = /** @type {store.VuebnbStoreActions} */ (this.$store);
+    theStore.dispatch(/** @type {store.ToggleSavePayloadObject} */({
+      type: sfn.a_toggleSaved,
       id: this.id
     }));
   }
