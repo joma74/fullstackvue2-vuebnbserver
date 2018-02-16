@@ -1,5 +1,4 @@
 /// <reference path="../../../types/vuebnb.d.ts"/>
-//@ts-check
 
 import ListingModel from "./ListingModel";
 import ListingCountriesWithSummaryModel from "./ListingCountriesWithSummaryModel";
