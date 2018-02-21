@@ -29,13 +29,20 @@
 import Vue from "vue";
 import RouterLink from "vue-router";
 import CustomFooter from "./CustomFooter.vue";
-import Component from "vue-class-component";
+import Component, {mixins} from "vue-class-component";
+import MyMixin from "./MyMixin";
+import VueClass from "vue-class-component"
 
 const LOGOUT_ELEMENTID = "logout";
 
 @Component
-export class AppClass extends Vue {
+export class AppClass extends mixins(MyMixin) {
   csrf_token = window.csrf_token;
+
+  created(){
+    console.log(this.mixinValue);
+    console.log(this.castMeEvil());
+  }
 
   logout() {
     let logoutForm = /** @type {HTMLFormElement} */ (document.getElementById(
@@ -59,6 +66,7 @@ export default Vue.extend({
     CustomFooter
   },
   extends: AppClass
+  
 });
 </script>
 
