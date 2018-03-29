@@ -4,11 +4,7 @@ import ListingModel from "./ListingModel";
 import ListingCountriesWithSummaryModel from "./ListingCountriesWithSummaryModel";
 
 /**
- * @typedef {Object} TitleIcon
- * @property {string} title
- * @property {string} icon
- *
- * @type {Map<string, TitleIcon>}
+ * @type {Map.<string, vuebnb.Amenity>}
  */
 let amenities = new Map();
 amenities.set("amenity_wifi", {
@@ -37,7 +33,7 @@ amenities.set("amenity_laptop", {
 });
 
 /**
- * @type {Map<string, string>}
+ * @type {Map.<string, string>}
  */
 let prices = new Map();
 prices.set("price_per_night", "Per night");
