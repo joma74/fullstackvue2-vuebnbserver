@@ -25,7 +25,11 @@ mix
   .copy("node_modules/open-sans-all/fonts", "public/fonts")
   .copy("resources/assets/images", "public/images")
   .options({
-    extractVueStyles: "public/css/vue-style.css"
+    extractVueStyles: "public/css/vue-style.css",
+    uglify: {
+      uglifyOptions: {
+      }
+    }
   })
   .extract(
     [
@@ -48,8 +52,10 @@ mix
     },
     output: {
       devtoolModuleFilenameTemplate(info) {
-        const isJsFile = info.resourcePath.match(/^\.\/src\/.*\.js$/)
-        return `webpack:///${isJsFile ? info.resourcePath.replace('./', '') : info.resourcePath}`
+        const isJsFile = info.resourcePath.match(/^\.\/src\/.*\.js$/);
+        return `webpack:///${
+          isJsFile ? info.resourcePath.replace("./", "") : info.resourcePath
+        }`;
       }
     }
   });
@@ -61,21 +67,18 @@ if (mix.inProduction()) {
   mix.webpackConfig({
     profile: true,
     plugins: [
-      new StatsWebpackPlugin(
-        "../target/webpack-stats.json",
-        {
-          hash: true,
-          version: true,
-          timings: true,
-          children: true,
-          errorDetails: false,
-          chunks: true,
-          modules: true,
-          reasons: true,
-          source: false,
-          publicPath: true
-        }
-      )
+      new StatsWebpackPlugin("../target/webpack-stats.json", {
+        hash: true,
+        version: true,
+        timings: true,
+        children: true,
+        errorDetails: false,
+        chunks: true,
+        modules: true,
+        reasons: true,
+        source: true,
+        publicPath: true
+      })
     ]
   });
 }
