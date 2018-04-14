@@ -1,20 +1,14 @@
-/// <reference path="../../../types/vuebnb.d.ts"/>
-/// <reference path="../../../types/window.d.ts"/>
+import axios from "axios";
 import Vue from "vue";
 import VueRouter, { Route } from "vue-router";
 // @ts-ignore
 import HomePage from "./components/HomePage.vue";
 // @ts-ignore
 import ListingPage from "./components/ListingPage.vue";
-import SavedPage from "./components/SavedPage.vue";
 import LoginPage from "./components/LoginPage.vue";
+import SavedPage from "./components/SavedPage.vue";
 import rn from "./router-names";
-import axios, { AxiosResponse } from "axios";
-import store, {
-  VuebnbStoreGetters,
-  VuebnbStoreState,
-  VuebnbStore
-} from "./store";
+import store, { VuebnbStore } from "./store";
 import sfn from "./store-function-names";
 
 Vue.use(VueRouter);

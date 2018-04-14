@@ -1,18 +1,10 @@
-/// <reference path="./store.d.ts"/>
-
-import Vue from "vue";
-import Vuex, { Store } from "vuex";
-import sfn from "./store-function-names";
-import rn from "./router-names";
-import {
-  VuebnbStoreState,
-  ToggleSavePayload,
-  AddDataPayloadObject,
-  VuebnbStoreMethods,
-  ToggleSavePayloadObject
-} from "./store";
-import router from "./router";
 import axios from "axios";
+import Vue from "vue";
+import Vuex from "vuex";
+import router from "./router";
+import rn from "./router-names";
+import { AddDataPayloadObject, ToggleSavePayload, ToggleSavePayloadObject, VuebnbStoreMethods, VuebnbStoreState } from "./store";
+import sfn from "./store-function-names";
 
 axios.defaults.headers.common = {
   "X-Requested-With": "XMLHttpRequest",
@@ -49,7 +41,8 @@ let theStore = new Vuex.Store({
         let thePayload = /** @type {ToggleSavePayload} */ (payload);
         let id = thePayload.id;
         let theStoreMethods = /** @type {VuebnbStoreMethods} */ (context);
-        axios.post("/api/user/toggle_saved", { id }).then(() => // hint: leading / in path means absolute, else relative to browser page
+        axios.post("/api/user/toggle_saved", { id }).then(() =>
+          // hint: leading / in path means absolute, else relative to browser page
           // hint: { id } generates { id: 1 };, id is the expected key on the server
           theStoreMethods.commit(
             /** @type {ToggleSavePayloadObject} */ ({

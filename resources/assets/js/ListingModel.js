@@ -1,5 +1,3 @@
-/// <reference path="../../../types/vuebnb.d.ts"/>
-
 export default function ListingModel() {
   /**
    * @type {vuebnb.ListingModel}
